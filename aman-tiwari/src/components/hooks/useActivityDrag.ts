@@ -3,6 +3,7 @@ import { DragEndEvent } from '@dnd-kit/core'
 import toast from 'react-hot-toast'
 import { db } from '@/lib/db'
 import type { Activity, Status } from '@/types/activity.types'
+import { ACTIVITY_FORM_MESSAGES } from './hooks.constants'
 
 const STATUS_SET = new Set<string>(['open', 'onHold', 'inProgress', 'resolved'])
 
@@ -90,7 +91,7 @@ export function useActivityDrag({
     if (movedAcrossColumns) {
       toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
     } else {
-      toast.success('Order updated')
+      toast.success( ACTIVITY_FORM_MESSAGES.TOAST.UPDATE.SUCCESS)
     }
 
     onDragSettled()

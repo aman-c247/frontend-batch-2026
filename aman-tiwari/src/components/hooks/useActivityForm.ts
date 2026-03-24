@@ -7,6 +7,7 @@ import {
   recordToFormValues,
   formValuesToRecord,
 } from '@/schema/ActivityForm.helpers'
+import { ACTIVITY_FORM_MESSAGES, ACTIVITY_MESSAGES } from './hooks.constants'
 
 interface UseActivityFormOptions {
   editRecord?: ActivityRecord
@@ -33,7 +34,7 @@ export function useActivityForm({
     formState: { errors },
   } = form
 
- 
+
   const activityType = watch('activityType')
   const delegatedActivity = watch('delegatedActivity')
   const assignToProject = watch('assignToProject')
@@ -52,33 +53,33 @@ export function useActivityForm({
 
   const registerActivityType = () =>
     register('activityType', {
-      required: 'Activity type is required',
+      required: ACTIVITY_FORM_MESSAGES.VALIDATION.ACTIVITY_TYPE_REQUIRED,
     })
 
   const registerCarrier = () =>
     register('carrier', {
       validate: (val) =>
-        activityType !== 'Account' || !!val || 'Carrier is required',
+        activityType !== 'Account' || !!val || ACTIVITY_FORM_MESSAGES.VALIDATION.CARRIER_REQUIRED,
     })
 
   const registerSubType = () => register('subType')
 
   const registerActivityName = () =>
     register('activityName', {
-      required: 'Activity name is required',
-      minLength: { value: 2, message: 'Name must be at least 2 characters' },
+      required: ACTIVITY_FORM_MESSAGES.VALIDATION.ACTIVITY_NAME_REQUIRED,
+      minLength: { value: 2, message: ACTIVITY_FORM_MESSAGES.VALIDATION.ACTIVITY_NAME_MIN },
     })
 
   const registerActivityDetails = () => register('activityDetails')
 
   const registerDueDate = () =>
     register('dueDate', {
-      required: 'Due date is required',
+      required: ACTIVITY_FORM_MESSAGES.VALIDATION.DUE_DATE_REQUIRED,
     })
 
   const registerPriority = () =>
     register('priority', {
-      required: 'Priority is required',
+      required: ACTIVITY_FORM_MESSAGES.VALIDATION.PRIORITY_REQUIRED,
     })
 
   const registerFollowUpDate = () =>
@@ -87,14 +88,14 @@ export function useActivityForm({
         if (!val) return true
         const due = watch('dueDate')
         if (due && val < due)
-          return 'Follow-up date must be on or after due date'
+          return ACTIVITY_FORM_MESSAGES.VALIDATION.FOLLOWUP_INVALID
         return true
       },
     })
 
   const registerActivityStatus = () =>
     register('activityStatus', {
-      required: 'Activity status is required',
+      required: ACTIVITY_FORM_MESSAGES.VALIDATION.STATUS_REQUIRED,
     })
 
   const registerInitialCommunication = () => register('initialCommunication')
@@ -102,13 +103,13 @@ export function useActivityForm({
   const registerOrganization = () =>
     register('organization', {
       validate: (val) =>
-        delegatedActivity !== 'yes' || !!val || 'Organization is required',
+        delegatedActivity !== 'yes' || !!val || ACTIVITY_FORM_MESSAGES.VALIDATION.ORGANIZATION_REQUIRED,
     })
 
   const registerDepartment = () =>
     register('department', {
       validate: (val) =>
-        delegatedActivity !== 'yes' || !!val || 'Department is required',
+        delegatedActivity !== 'yes' || !!val || ACTIVITY_FORM_MESSAGES.VALIDATION.DEPARTMENT_REQUIRED,
     })
 
   const registerPosition = () => register('position')
@@ -118,13 +119,13 @@ export function useActivityForm({
   const registerProject = () =>
     register('project', {
       validate: (val) =>
-        assignToProject !== 'yes' || !!val || 'Project is required',
+        assignToProject !== 'yes' || !!val || ACTIVITY_FORM_MESSAGES.VALIDATION.PROJECT_REQUIRED,
     })
 
   const registerFrequency = () =>
     register('frequency', {
       validate: (val) =>
-        recurringActivity !== 'yes' || !!val || 'Frequency is required',
+        recurringActivity !== 'yes' || !!val || ACTIVITY_FORM_MESSAGES.VALIDATION.FREQUENCY_REQUIRED,
     })
 
   const registerNote = () => register('note')
@@ -158,11 +159,11 @@ export function useActivityForm({
         ? db.activities.update(editRecord!.id!, record)
         : db.activities.add(record),
       {
-        loading: isEdit ? 'Saving changes…' : 'Creating activity…',
-        success: isEdit ? 'Activity updated!' : 'Activity created!',
+        loading: isEdit ? ACTIVITY_MESSAGES.UPDATE.LOADING : ACTIVITY_MESSAGES.CREATE.LOADING,
+        success: isEdit ? ACTIVITY_MESSAGES.UPDATE.SUCCESS : ACTIVITY_MESSAGES.CREATE.SUCCESS,
         error: isEdit
-          ? 'Failed to update activity.'
-          : 'Failed to create activity.',
+          ? ACTIVITY_MESSAGES.UPDATE.ERROR
+          :ACTIVITY_MESSAGES.CREATE.ERROR,
       },
     )
 
