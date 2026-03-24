@@ -38,8 +38,8 @@
 .iconWrapper {
   @include flex-center();
 
-  width: $width-xl;
-  height: $width-xl;
+  width: $width-m;
+  height: $width-m;
   border-radius: 50%;
 
   background: $color-badge-bgred;
