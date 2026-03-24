@@ -1,0 +1,17 @@
+@use './abstracts' as *;
+
+
+body {
+  font-family: $font-primary;
+  font-size: $font-size-md;
+  background-color: $color-light;
+  color: $color-black;
+}
+
+
+.container {
+  padding: $spacing-lg;
+  @include respond(md) {
+    padding: $spacing-md;
+  }
+}

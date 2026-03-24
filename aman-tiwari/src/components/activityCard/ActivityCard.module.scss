@@ -1,0 +1,119 @@
+@use '@/styles/abstracts' as *;
+
+.card {
+  background: $color-white;
+  border-radius: $spacing-s;
+  padding: $spacing-s $spacing-s $spacing-6;
+  margin-bottom: $font-size-x;
+  cursor: grab;
+  box-shadow: $shadow-md;
+  border-left: $spacing-xs solid transparent;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+  position: relative;
+
+  &:active {
+    cursor: grabbing;
+  }
+  &:hover {
+    box-shadow: $shadow-lg;
+    transform: translateY(-1px);
+  }
+
+  &.urgent {
+    border-left-color: $color-urgent;
+  }
+  &.high {
+    border-left-color: $color-high;
+  }
+  &.standard {
+    border-left-color: $color-standard;
+  }
+}
+
+.title {
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-md;
+  color: $color-text-main;
+  margin-bottom: $spacing-s;
+  line-height: 1.35;
+}
+
+.meta {
+  @include flex-center(8px);
+  margin-bottom: $spacing-s;
+  flex-wrap: wrap;
+}
+
+.owner {
+  @include badge-style($color-bg-grey, $color-text-muted);
+  svg {
+    flex-shrink: 0;
+    color: $color-svg;
+  }
+}
+
+.dateBadge {
+  @include badge-style($color-badge-bgred, $color-accent-red, $font-size-xs);
+  font-weight: $font-weight-md;
+  svg {
+    height: $font-size-xs;
+  }
+}
+
+.stats {
+  @include flex-center(10px);
+  margin-bottom: $spacing-s;
+}
+
+.stat {
+  @include badge-style($color-bg-grey, $color-text-light);
+  svg {
+    color: $color-svg;
+  }
+}
+
+.actions {
+  @include flex-between;
+  margin: $card-foter-margin;
+  background-color: $color-bg-footer;
+  border-radius:$radius-action;
+  padding: $spacing-6;
+}
+
+.expandBtn {
+  @include action-button(30px, 50%);
+  border: $border-xs;
+  background: $color-bg-light;
+  color: $color-text;
+
+  &:hover {
+    background: $color-svg;
+    color: $color-primary;
+  }
+}
+
+.actionBtns {
+  @include flex-center(5px);
+}
+
+.actionBtn {
+  @include action-button(30px, 6px);
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.edit {
+    background: $color-accent-blue;
+    color: $color-white;
+  }
+
+  &.delete {
+    background: $color-white;
+    color: $color-black;
+    border: $border-xs;
+  }
+}

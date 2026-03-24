@@ -1,0 +1,125 @@
+/* Colors */
+$color-primary: #003e57;
+$color-secondary: #3867ad;
+$color-accent: #ff6b6b;
+
+$color-text-main: #1a2340;
+$color-text-muted: #6b7a99;
+$color-text-light: #8898aa;
+
+$color-accent-blue: #5fc1fa;
+$color-accent-red: #e53e3e;
+
+$color-badge-bgred: #fff0f0;
+
+$column-themes: (
+  'open': (
+    #f3e8ff,
+    #9b59b6,
+  ),
+  'onHold': (
+    #fff8e1,
+    #f39c12,
+  ),
+  'inProgress': (
+    #e8f4fd,
+    #2980b9,
+  ),
+  'resolved': (
+    #e8faf0,
+    #27ae60,
+  ),
+);
+
+$color-scroll-thumb: #dde2ee;
+
+$color-border: #b1b1b1;
+$color-border-light: #dde3ef;
+$color-hover-light: #f1f5f9;
+
+$color-text: #1a202c;
+$color-text-light: #8898aa;
+
+$color-urgent: #e74c3c;
+$color-high: #e67e22;
+$color-standard: #f8bc87;
+
+$color-open: #720bc7;
+$color-onhold: #f8aa1a;
+$color-inprogress: #33aedf;
+$color-resolved: #28c287;
+
+$color-success: #28a745;
+$color-warning: #ffc107;
+$color-danger: #dc3545;
+
+$color-black: #000000;
+$color-gray: #6c757d;
+$color-light: #f2f8ff;
+$color-svg: #a0aec0;
+
+$color-white: #ffffff;
+$color-bg-light: #f8f8f8;
+$color-bg-grey: #eeeeee;
+$color-bg-footer: #f1f1f1;
+
+/* Typography */
+$font-primary: 'Inter', sans-serif;
+
+$font-size-x: 10px;
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-md: 16px;
+$font-size-lg: 20px;
+$font-size-xl: 24px;
+
+/* Spacing */
+$spacing-xs: 4px;
+$spacing-6: 6px;
+$spacing-sm: 8px;
+$spacing-s: 10px;
+$spacing-md: 16px;
+$spacing-14: 14px;
+$spacing-ls: 22px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+
+/* Border Radius */
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 16px;
+$radius-action: 0 0 10px 10px;
+
+/*Border  */
+$border-xs: 1px solid rgb(88, 88, 88);
+
+/* Shadows */
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+$shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+
+/* Breakpoints */
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+/* Transition */
+$transition-fast: 0.15s ease;
+$transition-medium: 0.2s ease;
+
+/* Z-index */
+$z-modal: 1000;
+
+//heigth
+$height-xs: 200px;
+
+//font weight
+$font-weight-sm: 400;
+$font-weight-md: 500;
+$font-weight-l: 600;
+$font-weight-xl: 700;
+
+//card
+$card-foter-margin: 0 -10px -6px -10px;
+$card-list-padding:6px 10px 0

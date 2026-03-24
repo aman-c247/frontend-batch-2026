@@ -1,0 +1,232 @@
+@use '@/styles/abstracts' as *;
+
+
+.footer {
+  padding: 0 $spacing-ls $spacing-lg;
+}
+
+
+.addBtn {
+  width: 100%;
+  padding: $spacing-sm;
+  @include button($color-inprogress);
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-l;
+  letter-spacing: 0.02em;
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 50, 0.52);
+  backdrop-filter: blur(3px);
+
+  @include flex-center();
+
+  z-index: $z-modal;
+  padding: $spacing-md;
+
+  @include fade-in();
+}
+
+
+.modal {
+  background: $color-white;
+  border-radius: $radius-md;
+
+  width: 480px;
+  max-width: 100%;
+  height: 520px;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+
+  @include slide-up();
+}
+
+
+.header {
+  background: $color-primary;
+  padding: $spacing-s $spacing-sm;
+
+  @include flex(center, space-between);
+
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: $font-primary;
+  font-size: $font-size-md;
+  font-weight: $font-weight-xl;
+  color: $color-white;
+  margin: 0;
+
+  @include flex-center(8px);
+}
+
+.count {
+  @include flex-center();
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 $spacing-xs;
+
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: $font-weight-xl;
+}
+
+.closeBtn {
+  @include action-button(30px, 6px);
+
+  background: $color-white;
+  color: $color-primary;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-xl;
+
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-bg-grey;
+  }
+}
+
+
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: $color-bg-light;
+}
+
+
+.noteList {
+  flex: 1;
+  overflow-y: auto;
+  padding: $spacing-14 $spacing-14 $spacing-sm;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  @include scrollbar(4px, $color-border-light);
+}
+
+.empty {
+  flex: 1;
+  @include flex-center();
+
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  color: $color-text-light;
+
+  text-align: center;
+  padding: $spacing-lg;
+}
+
+
+.noteBubble {
+  align-self: flex-end;
+  max-width: 80%;
+
+  background: $color-inprogress;
+  border-radius: 12px 12px 2px 12px;
+
+  padding: $spacing-sm $spacing-sm $spacing-xs;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  @include fade-in(0.15s);
+}
+
+.noteText {
+  font-family: $font-primary;
+  font-size: 12.5px;
+  color: $color-white;
+
+  margin: 0;
+  line-height: 1.5;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.noteTime {
+  font-family: $font-primary;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.65);
+
+  align-self: flex-end;
+}
+
+
+.inputRow {
+  @include flex(flex-end, flex-start);
+
+  gap: $spacing-sm;
+  padding: $spacing-s $spacing-sm;
+
+  background: $color-white;
+  border-top: 1px solid $color-border-light;
+
+  flex-shrink: 0;
+}
+
+
+.textarea {
+  flex: 1;
+  @include input;
+
+  font-size: $font-size-xs;
+  background: $color-bg-grey;
+
+  resize: none;
+  line-height: 1.5;
+
+  &::placeholder {
+    color: $color-text-light;
+  }
+
+  @include scrollbar(3px, $color-border-light);
+}
+
+
+.sendBtn {
+  @include action-button(36px, 50%);
+
+  background: $color-inprogress;
+  color: $color-white;
+
+  font-size: $font-size-sm;
+
+  flex-shrink: 0;
+
+  transition: opacity $transition-fast, transform 0.1s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.93);
+  }
+
+  &:disabled {
+    background: lighten($color-inprogress, 25%);
+    cursor: not-allowed;
+  }
+}

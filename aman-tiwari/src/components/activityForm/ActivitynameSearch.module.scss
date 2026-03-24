@@ -1,0 +1,50 @@
+@use '@/styles/abstracts' as *;
+
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 3px);
+  left: 0;
+  right: 0;
+
+  z-index: 200;
+
+  background: $color-white;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+
+  list-style: none;
+  margin: 0;
+  padding: $spacing-xs 0;
+
+  max-height: 180px;
+  overflow-y: auto;
+
+  box-shadow: $shadow-md;
+
+  @include scrollbar(4px, $color-border-light);
+}
+
+.dropdownItem {
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  color: $color-text;
+
+  padding: $spacing-xs $spacing-sm;
+
+  cursor: pointer;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-bg-grey;
+  }
+}
+
+.active {
+  background: lighten($color-inprogress, 35%);
+  color: $color-inprogress;
+}

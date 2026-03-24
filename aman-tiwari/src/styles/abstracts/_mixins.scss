@@ -1,0 +1,176 @@
+@use './variables' as *;
+
+@mixin flex-center($gap: 0px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $gap;
+}
+
+/* Flex Between */
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Flex */
+@mixin flex($align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
+/* Responsive */
+@mixin respond($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) {
+      @content;
+    }
+  }
+  @if $breakpoint == md {
+    @media (max-width: $breakpoint-md) {
+      @content;
+    }
+  }
+  @if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) {
+      @content;
+    }
+  }
+  @if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
+
+@mixin button($bg, $color: #fff) {
+  background: $bg;
+  color: $color;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+/* Text Ellipsis */
+@mixin text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+/* Card */
+@mixin card {
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-md;
+}
+
+@mixin absolute-fill {
+  position: absolute;
+  inset: 0;
+}
+
+@mixin input {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: $color-text;
+  background: $color-light;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+  padding: $spacing-sm;
+  width: 100%;
+  outline: none;
+  transition: border-color $transition-medium;
+
+  &:focus {
+    border-color: lighten($color-border, 10%);
+  }
+
+  &:disabled {
+    background: #f0f2f8;
+    color: #b0b8cc;
+    cursor: not-allowed;
+  }
+}
+
+@mixin scrollbar($width: 5px, $thumb: #dde3ef) {
+  &::-webkit-scrollbar {
+    width: $width;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $thumb;
+    border-radius: 4px;
+  }
+}
+
+@mixin hover-opacity {
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+@mixin badge-style($bg, $color, $size: 12px) {
+  @include flex-center(4px);
+  background: $bg;
+  color: $color;
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-family: 'Inter', sans-serif;
+  font-size: $size;
+}
+
+@mixin action-button($size: 30px, $radius: 6px) {
+  width: $size;
+  height: $size;
+  border-radius: $radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+@mixin fade-in($duration: 0.15s) {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  animation: fadeIn $duration ease;
+}
+
+@mixin slide-up($duration: 0.22s, $distance: 24px) {
+  @keyframes slideUp {
+    from {
+      transform: translateY($distance);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  animation: slideUp $duration ease;
+}
+
+@mixin form-grid($cols: 1fr 1fr, $gap: 14px) {
+  display: grid;
+  grid-template-columns: $cols;
+  gap: $gap;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,56 @@
+@use '@/styles/abstracts' as *;
+
+.page {
+  background: $color-bg-grey;
+  min-height: 100vh;
+  padding: 0;
+}
+
+.contentWrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  padding: $spacing-sm;
+  margin: 0 $spacing-s;
+  gap: $spacing-6;
+}
+
+.dragOverlay {
+  padding: $spacing-s;
+  background: $color-white;
+  border-radius: $radius-md;
+  box-shadow: $shadow-md;
+  transform: rotate(2deg);
+  width: 220px;
+}
+
+.toast-base {
+  font-family: $font-primary !important;
+  font-size: $font-size-xs !important;
+  font-weight: $font-weight-md !important;
+
+  border-radius: $radius-md !important;
+  box-shadow: $shadow-md !important;
+
+  padding: $spacing-s $spacing-14 !important;
+  max-width: 320px !important;
+
+  color: $color-text-main !important;
+  background: $color-white !important;
+
+  border: 1px solid $color-border-light;
+
+  @include flex-center(8px);
+}
+
+.toast-success {
+  border-left: 3px solid $color-resolved !important;
+}
+
+.toast-error {
+  border-left: 3px solid $color-urgent !important;
+}
+
+.toast-loading {
+  border-left: 3px solid $color-inprogress !important;
+}

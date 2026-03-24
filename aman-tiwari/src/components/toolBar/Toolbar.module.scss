@@ -1,0 +1,72 @@
+@use '@/styles/abstracts' as *;
+
+.toolbar {
+  margin-bottom: $spacing-xs;
+  @include flex(center, space-between);
+}
+
+.rightSection {
+  @include flex(center, flex-end);
+  gap: $spacing-md;
+  padding: $spacing-sm;
+}
+
+.priority {
+  @include flex-center(0);
+  margin-right: $spacing-md;
+
+  span {
+    margin-right: $spacing-sm;
+    font-weight: $font-weight-md;
+  }
+}
+
+.priority_wrapper {
+  @include flex-center(5px);
+  background-color: $color-bg-grey;
+  padding: $spacing-xs;
+}
+
+.priorityText {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-xl;
+}
+
+.subwraper {
+  @include flex-center(0);
+}
+
+.urgent,
+.high,
+.standard {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: block;
+}
+
+.urgent {
+  background-color: $color-urgent;
+}
+
+.high {
+  background-color: $color-high;
+}
+
+.standard {
+  background-color: $color-standard;
+}
+
+.viewToggle {
+  @include flex-center($spacing-xs);
+
+  button {
+    border-radius: $radius-md;
+    padding: $spacing-xs $spacing-sm;
+    transition: $transition-medium;
+
+    &:hover {
+      background-color: $color-hover-light;
+    }
+  }
+}

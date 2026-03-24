@@ -1,0 +1,384 @@
+@use '@/styles/abstracts' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 50, 0.52);
+  backdrop-filter: blur(3px);
+
+  @include flex-center();
+
+  z-index: $z-modal;
+  padding: $spacing-md;
+
+  @include fade-in();
+}
+
+/* ── Modal ── */
+.modal {
+  background: $color-white;
+  border-radius: $radius-md;
+
+  width: 560px;
+  max-width: 100%;
+  max-height: 92vh;
+
+  display: flex;
+  flex-direction: column;
+
+  box-shadow: $shadow-lg;
+  overflow: hidden;
+
+  @include slide-up();
+}
+
+.header {
+  background: $color-primary;
+  padding: $spacing-s $spacing-sm;
+
+  @include flex(center, space-between);
+
+  flex-shrink: 0;
+}
+
+.title {
+  font-family: $font-primary;
+  font-size: $font-size-md;
+  font-weight: $font-weight-xl;
+  color: $color-white;
+
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.closeBtn {
+  @include action-button(30px, 6px);
+
+  background: $color-white;
+  color: $color-primary;
+
+  font-size: $font-size-md;
+  font-weight: $font-weight-xl;
+
+  transition: background $transition-fast;
+
+  &:hover {
+    background: $color-bg-grey;
+  }
+}
+
+.body {
+  overflow-y: auto;
+  padding: $spacing-s $spacing-md $spacing-sm;
+  flex: 1;
+
+  @include scrollbar(5px, $color-border-light);
+}
+
+.row {
+  @include form-grid(1fr 1fr, $spacing-14);
+}
+
+.fullRow {
+  margin-bottom: $spacing-s;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.label {
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-l;
+  letter-spacing: 0.01em;
+}
+
+.required {
+  font-weight: $font-weight-sm;
+  color: $color-accent-red;
+  margin-left: 3px;
+  font-size: 11px;
+}
+
+.input,
+.select {
+  @include input;
+
+  font-size: $font-size-xs;
+  background: $color-bg-grey;
+
+  &::placeholder {
+    color: $color-text;
+  }
+}
+
+.select {
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238898aa' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 8px 8px;
+
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+.dateWrapper {
+  @include flex(center, flex-start);
+
+  position: relative;
+  width: 100%;
+
+  padding: $spacing-sm;
+  padding-right: 0;
+
+  font-size: $font-size-xs;
+  height: 36px;
+
+  border-radius: $radius-sm;
+  background: $color-bg-grey;
+  border: 1px solid $color-border;
+
+  gap: $spacing-sm;
+
+  &:focus-within {
+    border-color: lighten($color-border, 10%);
+  }
+}
+
+.displayValue {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text;
+  letter-spacing: 0.4px;
+
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.placeholder {
+  color: $color-text;
+}
+
+.hiddenInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.iconBtn {
+  @include flex(center, flex-end);
+
+  flex-shrink: 0;
+  width: 30px;
+  height: 32px;
+
+  background: $color-bg-light;
+
+  border: none;
+  border-left: 1px solid $color-border;
+
+  border-radius: $radius-sm;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+
+  color: $color-text;
+  cursor: pointer;
+
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+
+  z-index: 1;
+
+  &:hover {
+    background: $color-hover-light;
+  }
+}
+
+.editorBox {
+  border: 1.5px solid $color-border-light;
+  border-radius: $radius-md;
+  overflow: hidden;
+  background: $color-bg-light;
+}
+
+.editorToolbar {
+  @include flex-center(4px);
+
+  padding: 7px $spacing-sm;
+
+  border-bottom: 1px solid $color-border-light;
+  background: $color-white;
+}
+
+.toolbarBtn {
+  @include action-button(28px, 5px);
+
+  border: 1px solid $color-border-light;
+  background: $color-bg-light;
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-xl;
+  color: $color-text;
+
+  &:hover {
+    background: lighten($color-bg-light, 5%);
+    color: $color-secondary;
+  }
+}
+
+.editorArea {
+  min-height: 90px;
+  padding: $spacing-s $spacing-sm;
+
+  font-family: $font-primary;
+  font-size: 13.5px;
+  color: $color-text-main;
+
+  outline: none;
+  background: $color-bg-light;
+
+  &:empty::before {
+    content: attr(data-placeholder);
+    color: $color-text-light;
+  }
+}
+
+.wordCount {
+  text-align: right;
+  padding: 4px $spacing-sm $spacing-xs;
+
+  font-size: 11px;
+  color: $color-text-light;
+
+  background: $color-bg-light;
+}
+
+.toggleGroup {
+  @include flex-center(0);
+  width: 40%;
+  border-radius: 7px;
+  overflow: hidden;
+
+  border: 1.5px solid $color-border;
+  background-color: $color-bg-grey;
+
+  padding: $spacing-xs;
+}
+
+.toggleBtn {
+  padding: $spacing-xs $spacing-sm;
+
+  border: none;
+  background: $color-bg-light;
+
+  font-family: $font-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-l;
+
+  color: $color-text-light;
+  cursor: pointer;
+
+  border-radius: $radius-sm;
+
+  transition:
+    background $transition-fast,
+    color $transition-fast;
+
+  &.active {
+    background: $color-inprogress;
+    color: $color-white;
+  }
+
+  &.inactive {
+    background: darken($color-bg-grey, 30%);
+    color: $color-white;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.footer {
+  padding: $spacing-14 $spacing-ls $spacing-md;
+
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  flex-shrink: 0;
+
+  border-top: 1px solid $color-border-light;
+}
+
+.footerActions {
+  @include flex-center($spacing-sm);
+}
+
+/* ── Buttons ── */
+.noteBtn,
+.submitBtn {
+  @include button($color-inprogress);
+
+  font-size: $font-size-xs;
+  font-weight: $font-weight-l;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+}
+
+.submitBtn {
+  width: 100%;
+  letter-spacing: 0.02em;
+}
+
+.checkRow {
+  @include flex-center(4px);
+
+  margin-bottom: $spacing-14;
+
+  input[type='checkbox'] {
+    width: 12px;
+    height: 12px;
+    accent-color: $color-secondary;
+    cursor: pointer;
+  }
+
+  label {
+    font-family: $font-primary;
+    font-size: 10px;
+    font-weight: $font-weight-xl;
+    cursor: pointer;
+  }
+}
+
+.sectionLabel {
+  font-family: $font-primary;
+  font-size: 13px;
+  font-weight: $font-weight-xl;
+
+  color: $color-text;
+  margin-bottom: $spacing-xs;
+}
+
+.toggleRow {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}

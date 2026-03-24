@@ -1,0 +1,95 @@
+@use '@/styles/abstracts' as *;
+
+.column {
+  background: $color-light;
+  border-radius: $radius-lg;
+  min-height: $height-xs;
+  transition: background $transition-medium;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+
+  &.activeDrop {
+    background: $color-light;
+    outline: 2px dashed #6366f1;
+    outline-offset: -2px;
+  }
+}
+
+.header {
+  @include flex-between;
+  padding: $spacing-14 $spacing-14 $spacing-s;
+  border-radius: $radius-lg $radius-lg 0 0;
+  position: relative;
+}
+
+.headerLeft {
+  @include flex-center(8px);
+}
+
+.statusLabel {
+  font-family: $font-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-xl;
+  color: $color-text-main;
+  letter-spacing: -0.01em;
+}
+
+.badge {
+  @include flex(center, center);
+  min-width: $spacing-lg;
+  height: $spacing-ls;
+  padding: 0 $spacing-xs;
+  border-radius: $spacing-s;
+  font-family: $font-primary;
+  font-size: $font-size-x;
+  font-weight: $font-weight-l;
+}
+
+.filterBtn {
+  @include action-button(36px, 7px);
+  background: inherit;
+  color: $color-text-light;
+
+  svg {
+    width: 36px;
+    height: 36px;
+  }
+  &:hover {
+    background: $color-light;
+  }
+}
+
+.cardList {
+  @include scrollbar(4px, $color-scroll-thumb);
+  padding: $card-list-padding;
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: visible;
+  border-radius: 0 0 11px $radius-lg;
+}
+
+@each $status, $colors in $column-themes {
+  .#{$status} {
+    .header,
+    .cardList {
+      background-color: nth($colors, 1);
+    }
+    .badge {
+      background-color: nth($colors, 2);
+      color: $color-white;
+    }
+  }
+}
+
+.filterActive {
+  background:$color-secondary !important;
+  color: $color-white !important;
+  border-radius: $radius-sm;
+
+  svg path,
+  svg rect,
+  svg line {
+    stroke: $color-white;
+  }
+}
