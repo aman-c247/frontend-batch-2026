@@ -1,4 +1,3 @@
-
 export const ACTIVITY_FORM_TEXT = {
   title: {
     create: 'Create Activity',
@@ -9,6 +8,8 @@ export const ACTIVITY_FORM_TEXT = {
     addNote: 'Add Note',
     create: 'Create Activity',
     save: 'Save Activity',
+    add_activity: 'Add Activity Name to Data Set',
+    close: '✕',
   },
 
   fields: {
@@ -27,6 +28,8 @@ export const ACTIVITY_FORM_TEXT = {
     person: 'Person',
     project: 'Project',
     frequency: 'Frequency',
+    carrier_option: 'West side Organization',
+    mainAccount_option: 'Main Account',
   },
 
   toggles: {
@@ -34,15 +37,15 @@ export const ACTIVITY_FORM_TEXT = {
     assignProject: 'Assign To Specific Project?',
     recurring: 'Recurring Activity?',
     personal: 'Personal Activity?',
+    yes: 'YES',
+    no: 'NO',
   },
 
   placeholders: {
     activityDetails: 'Write activity details here...',
+    dueDate: 'Choose a due date',
   },
 }
-
-
-
 
 export const ACTIVITY_TYPE_OPTIONS = [
   { value: '', label: 'Select Activity Type' },
@@ -58,10 +61,34 @@ export const PRIORITY_OPTIONS = [
 ]
 
 export const STATUS_OPTIONS = [
-  { value: 'Open', label: 'Open' },
-  { value: 'onHold', label: 'On Hold' },
-  { value: 'inProgress', label: 'In Progress' },
-  { value: 'Resolved', label: 'Resolved' },
+  { value: 'Standard', label: 'Standard' },
+  { value: 'High', label: 'High' },
+  { value: 'Urgent', label: 'Urgent' },
+]
+
+export const ORG_OPTION = [
+  { value: '', label: 'Select Organization' },
+  { value: 'C247 Infotech', label: 'C247 Infotech' },
+]
+
+export const POSITION_OPTION = [
+  { value: '', label: 'Select Position' },
+  { value: 'Software Developer', label: 'Software Developer' },
+]
+
+export const PERSON_OPTION = [
+  { value: '', label: 'Select Person' },
+  { value: 'Aman', label: 'Aman' },
+]
+
+export const PROJECT_OPTION = [
+  { value: '', label: 'Select Project' },
+  { value: 'activity task', label: 'Activity Task' },
+]
+
+export const DEPARTMENT_OPTION = [
+  { value: '', label: 'Select Department' },
+  { value: 'C247 Infotech', label: 'C247 Infotech' },
 ]
 
 export const COMMUNICATION_OPTIONS = [

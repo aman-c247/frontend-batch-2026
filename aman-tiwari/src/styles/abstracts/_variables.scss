@@ -63,7 +63,7 @@ $color-bg-light: #f8f8f8;
 $color-bg-grey: #eeeeee;
 $color-bg-footer: #f1f1f1;
 
-/* Typography */
+
 $font-primary: 'Inter', sans-serif;
 
 $font-size-x: 10px;
@@ -73,16 +73,25 @@ $font-size-md: 16px;
 $font-size-lg: 20px;
 $font-size-xl: 24px;
 
+
 /* Spacing */
+$spacing-vsm:2px;
 $spacing-xs: 4px;
 $spacing-6: 6px;
 $spacing-sm: 8px;
 $spacing-s: 10px;
+$spacing-ss:12px
 $spacing-md: 16px;
 $spacing-14: 14px;
 $spacing-ls: 22px;
 $spacing-lg: 24px;
+$spacing-lx:28px
+$spacing-30:30px
 $spacing-xl: 32px;
+$spacing-xxl: 36px;
+
+$width-m:56px;
+$width-l:340px;
 
 /* Border Radius */
 $radius-sm: 4px;
@@ -110,6 +119,7 @@ $transition-medium: 0.2s ease;
 
 /* Z-index */
 $z-modal: 1000;
+$z-panel:300
 
 //heigth
 $height-xs: 200px;

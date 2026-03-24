@@ -18,7 +18,7 @@
   background: $color-white;
   border-radius: $radius-md;
 
-  width: 340px;
+  width: $width-l;
   max-width: 100%;
 
   display: flex;
@@ -38,16 +38,16 @@
 .iconWrapper {
   @include flex-center();
 
-  width: 56px;
-  height: 56px;
+  width: $width-xl;
+  height: $width-xl;
   border-radius: 50%;
 
   background: $color-badge-bgred;
   margin-bottom: $spacing-md;
 
   svg {
-    width: 24px;
-    height: 24px;
+    width: $spacing-lg;
+    height: $spacing-lg;
     color: $color-danger;
 
     path,

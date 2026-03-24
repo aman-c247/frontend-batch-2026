@@ -1,12 +1,7 @@
 import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import toast from 'react-hot-toast'
 import { db } from '@/lib/db'
-import type { ActivityRecord } from '@/types/activity.types'
-import {
-  activityFormSchema,
-  type ActivityFormValues,
-} from '@/schema/ActivityForm.schema'
+import type { ActivityFormValues, ActivityRecord } from '@/types/activity.types'
 import {
   FORM_DEFAULTS,
   recordToFormValues,
@@ -25,17 +20,20 @@ export function useActivityForm({
   onClose,
 }: UseActivityFormOptions) {
   const form = useForm<ActivityFormValues>({
-    resolver: zodResolver(activityFormSchema),
     defaultValues: editRecord ? recordToFormValues(editRecord) : FORM_DEFAULTS,
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
   })
 
   const {
     watch,
     setValue,
     handleSubmit,
+    register,
     formState: { errors },
   } = form
 
+ 
   const activityType = watch('activityType')
   const delegatedActivity = watch('delegatedActivity')
   const assignToProject = watch('assignToProject')
@@ -44,10 +42,94 @@ export function useActivityForm({
   const activityName = watch('activityName')
   const note = watch('note')
 
+
   const isAccount = activityType === 'Account'
   const showDelegatedFields = delegatedActivity === 'yes'
   const showProjectField = assignToProject === 'yes'
   const showFrequencyField = recurringActivity === 'yes'
+
+
+
+  const registerActivityType = () =>
+    register('activityType', {
+      required: 'Activity type is required',
+    })
+
+  const registerCarrier = () =>
+    register('carrier', {
+      validate: (val) =>
+        activityType !== 'Account' || !!val || 'Carrier is required',
+    })
+
+  const registerSubType = () => register('subType')
+
+  const registerActivityName = () =>
+    register('activityName', {
+      required: 'Activity name is required',
+      minLength: { value: 2, message: 'Name must be at least 2 characters' },
+    })
+
+  const registerActivityDetails = () => register('activityDetails')
+
+  const registerDueDate = () =>
+    register('dueDate', {
+      required: 'Due date is required',
+    })
+
+  const registerPriority = () =>
+    register('priority', {
+      required: 'Priority is required',
+    })
+
+  const registerFollowUpDate = () =>
+    register('followUpDate', {
+      validate: (val) => {
+        if (!val) return true
+        const due = watch('dueDate')
+        if (due && val < due)
+          return 'Follow-up date must be on or after due date'
+        return true
+      },
+    })
+
+  const registerActivityStatus = () =>
+    register('activityStatus', {
+      required: 'Activity status is required',
+    })
+
+  const registerInitialCommunication = () => register('initialCommunication')
+
+  const registerOrganization = () =>
+    register('organization', {
+      validate: (val) =>
+        delegatedActivity !== 'yes' || !!val || 'Organization is required',
+    })
+
+  const registerDepartment = () =>
+    register('department', {
+      validate: (val) =>
+        delegatedActivity !== 'yes' || !!val || 'Department is required',
+    })
+
+  const registerPosition = () => register('position')
+
+  const registerPerson = () => register('person')
+
+  const registerProject = () =>
+    register('project', {
+      validate: (val) =>
+        assignToProject !== 'yes' || !!val || 'Project is required',
+    })
+
+  const registerFrequency = () =>
+    register('frequency', {
+      validate: (val) =>
+        recurringActivity !== 'yes' || !!val || 'Frequency is required',
+    })
+
+  const registerNote = () => register('note')
+
+  const registerAddToDataSet = () => register('addToDataSet')
 
   const handleToggle = (
     field:
@@ -65,6 +147,7 @@ export function useActivityForm({
       setValue('delegatedActivity', 'no')
     }
   }
+
 
   const onSubmit = handleSubmit(async (values) => {
     const record = formValuesToRecord(values, editRecord)
@@ -95,10 +178,32 @@ export function useActivityForm({
     onSubmit,
     handleToggle,
 
+
+    registerActivityType,
+    registerCarrier,
+    registerSubType,
+    registerActivityName,
+    registerActivityDetails,
+    registerDueDate,
+    registerPriority,
+    registerFollowUpDate,
+    registerActivityStatus,
+    registerInitialCommunication,
+    registerOrganization,
+    registerDepartment,
+    registerPosition,
+    registerPerson,
+    registerProject,
+    registerFrequency,
+    registerNote,
+    registerAddToDataSet,
+
+
     isAccount,
     showDelegatedFields,
     showProjectField,
     showFrequencyField,
+
 
     activityName,
     delegatedActivity,

@@ -42,15 +42,3 @@
 
   @include flex-center(8px);
 }
-
-.toast-success {
-  border-left: 3px solid $color-resolved !important;
-}
-
-.toast-error {
-  border-left: 3px solid $color-urgent !important;
-}
-
-.toast-loading {
-  border-left: 3px solid $color-inprogress !important;
-}

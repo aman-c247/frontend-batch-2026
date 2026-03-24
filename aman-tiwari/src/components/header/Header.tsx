@@ -1,6 +1,7 @@
 import { Button } from 'react-bootstrap'
 import { FaPlus } from 'react-icons/fa'
 import styles from '@/components/header/Header.module.scss'
+import { HEADER_TEXT } from './header.constants'
 
 interface Props {
   onCreateActivity?: () => void
@@ -9,7 +10,7 @@ interface Props {
 export const Header = ({ onCreateActivity }: Props) => {
   return (
     <div className={styles.header}>
-      <h4 className={styles.title}>My Activities</h4>
+      <h4 className={styles.title}>{HEADER_TEXT.LEFT_TEXT}</h4>
 
       <div className={styles.actions}>
         <Button
@@ -17,7 +18,7 @@ export const Header = ({ onCreateActivity }: Props) => {
           className={styles.createBtn}
           onClick={onCreateActivity}
         >
-          Create Activity
+          {HEADER_TEXT.BUTTON_TEXT}
           <FaPlus className={styles.icon} />
         </Button>
       </div>

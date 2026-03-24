@@ -1,4 +1,4 @@
-import type { ActivityFormValues } from '@/schema/ActivityForm.schema'
+import type { ActivityFormValues } from '@/types/activity.types'
 import type { ActivityRecord, Activity } from '@/types/activity.types'
 
 export const FORM_DEFAULTS: ActivityFormValues = {

@@ -39,9 +39,7 @@ export interface ActivityRecord extends Omit<Activity, 'id'> {
   updatedAt?: string
 }
 
-
 export type YesNo = 'yes' | 'no'
-
 
 export interface FormState {
   activityType: string
@@ -68,3 +66,27 @@ export interface FormState {
   note: string
 }
 
+export type ActivityFormValues = {
+  activityType: string
+  carrier?: string
+  subType?: string
+  activityName: string
+  addToDataSet: boolean
+  activityDetails?: string
+  dueDate: string
+  priority: string
+  followUpDate?: string
+  activityStatus: string
+  initialCommunication?: string
+  delegatedActivity: 'yes' | 'no'
+  assignToProject: 'yes' | 'no'
+  recurringActivity: 'yes' | 'no'
+  personalActivity: 'yes' | 'no'
+  organization?: string
+  department?: string
+  position?: string
+  person?: string
+  project?: string
+  frequency?: string
+  note?: string
+}

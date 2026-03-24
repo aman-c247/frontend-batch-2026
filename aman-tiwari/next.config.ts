@@ -1,9 +1,5 @@
-import type { NextConfig } from "next";
-import dynamic from 'next/dynamic';
+import type { NextConfig } from 'next'
 
+const nextConfig: NextConfig = {}
 
-const nextConfig: NextConfig = {
-
-};
-
-export default nextConfig;
+export default nextConfig

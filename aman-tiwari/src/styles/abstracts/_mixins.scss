@@ -7,14 +7,13 @@
   gap: $gap;
 }
 
-/* Flex Between */
+
 @mixin flex-between {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-/* Flex */
 @mixin flex($align: center, $justify: center) {
   display: flex;
   align-items: $align;

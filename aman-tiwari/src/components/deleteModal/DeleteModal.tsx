@@ -1,5 +1,6 @@
 'use client'
 
+import { DELETE_TEXT } from './deletemodal.constants'
 import styles from './DeleteModal.module.scss'
 import { IconTrash } from '@/assets/icon/IconTrash'
 
@@ -17,7 +18,7 @@ export const ConfirmDeleteModal = ({
   onHide,
   onConfirm,
   title = 'Delete Activity',
-  message = 'tital',
+  message = 'activity',
   isLoading = false,
 }: Props) => {
   if (!show) return null
@@ -25,15 +26,14 @@ export const ConfirmDeleteModal = ({
   return (
     <div className={styles.overlay} onMouseDown={onHide}>
       <div className={styles.modal} onMouseDown={(e) => e.stopPropagation()}>
-
         <div className={styles.iconWrapper}>
           <IconTrash />
         </div>
 
-
         <h5 className={styles.title}>{title}</h5>
-        <p className={styles.message}>{`Are you sure you want to delete ${message}? This action cannot be undone`}</p>
-
+        <p
+          className={styles.message}
+        >{DELETE_TEXT.ALERT(message)}</p>
 
         <div className={styles.buttonGroup}>
           <button
@@ -41,14 +41,14 @@ export const ConfirmDeleteModal = ({
             onClick={onHide}
             disabled={isLoading}
           >
-            Cancel
+            {DELETE_TEXT.cancel}
           </button>
           <button
             className={styles.confirmBtn}
             onClick={onConfirm}
             disabled={isLoading}
           >
-            {isLoading ? 'Deleting…' : 'Delete'}
+            {isLoading ? DELETE_TEXT.deleting : DELETE_TEXT.delete}
           </button>
         </div>
       </div>

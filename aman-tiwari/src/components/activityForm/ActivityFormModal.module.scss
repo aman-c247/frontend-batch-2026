@@ -14,7 +14,6 @@
   @include fade-in();
 }
 
-/* ── Modal ── */
 .modal {
   background: $color-white;
   border-radius: $radius-md;
@@ -99,8 +98,8 @@
 .required {
   font-weight: $font-weight-sm;
   color: $color-accent-red;
-  margin-left: 3px;
-  font-size: 11px;
+  margin-left: $spacing-xs;
+  font-size: $spacing-s;
 }
 
 .input,
@@ -122,9 +121,9 @@
 
   background-repeat: no-repeat;
   background-position: right 12px center;
-  background-size: 8px 8px;
+  background-size: $spacing-sm $spacing-sm;
 
-  padding-right: 32px;
+  padding-right: $spacing-xl;
   cursor: pointer;
 }
 
@@ -138,11 +137,11 @@
   padding-right: 0;
 
   font-size: $font-size-xs;
-  height: 36px;
+  height: $spacing-xxl;
 
   border-radius: $radius-sm;
   background: $color-bg-grey;
-  border: 1px solid $color-border;
+  border: $border-xs;
 
   gap: $spacing-sm;
 
@@ -163,6 +162,7 @@
 }
 
 .placeholder {
+  font-family: $font-primary;
   color: $color-text;
 }
 
@@ -180,8 +180,8 @@
   @include flex(center, flex-end);
 
   flex-shrink: 0;
-  width: 30px;
-  height: 32px;
+  width: $spacing-30;
+  height: $spacing-xl;
 
   background: $color-bg-light;
 
@@ -218,7 +218,7 @@
 
   padding: 7px $spacing-sm;
 
-  border-bottom: 1px solid $color-border-light;
+  border-bottom: $border-xs;
   background: $color-white;
 }
 
@@ -243,7 +243,7 @@
   padding: $spacing-s $spacing-sm;
 
   font-family: $font-primary;
-  font-size: 13.5px;
+  font-size: $font-size-xs;
   color: $color-text-main;
 
   outline: none;
@@ -257,9 +257,9 @@
 
 .wordCount {
   text-align: right;
-  padding: 4px $spacing-sm $spacing-xs;
+  padding: $spacing-xs $spacing-sm $spacing-xs;
 
-  font-size: 11px;
+  font-size: $font-size-x;
   color: $color-text-light;
 
   background: $color-bg-light;
@@ -328,7 +328,6 @@
   @include flex-center($spacing-sm);
 }
 
-/* ── Buttons ── */
 .noteBtn,
 .submitBtn {
   @include button($color-inprogress);
@@ -336,11 +335,9 @@
   font-size: $font-size-xs;
   font-weight: $font-weight-l;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center(0px);
 
-  gap: 7px;
+  gap: $spacing-6;
 }
 
 .submitBtn {
@@ -354,15 +351,15 @@
   margin-bottom: $spacing-14;
 
   input[type='checkbox'] {
-    width: 12px;
-    height: 12px;
+    width: $spacing-ss;
+    height: $spacing-ss;
     accent-color: $color-secondary;
     cursor: pointer;
   }
 
   label {
     font-family: $font-primary;
-    font-size: 10px;
+    font-size: $spacing-s;
     font-weight: $font-weight-xl;
     cursor: pointer;
   }
@@ -370,7 +367,7 @@
 
 .sectionLabel {
   font-family: $font-primary;
-  font-size: 13px;
+  font-size: $font-size-xs:;
   font-weight: $font-weight-xl;
 
   color: $color-text;

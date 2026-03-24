@@ -4,12 +4,13 @@ import toast from 'react-hot-toast'
 import { fetchActivities } from '@/services/activities.service'
 import { db } from '@/lib/db'
 import type { Activity, ActivityRecord } from '@/types/activity.types'
+import { ACTIVITY_MESSAGES, QUERY_KEYS } from './hooks.constants'
 
 export function useActivities() {
   const [activities, setActivities] = useState<Activity[]>([])
 
   const { data: apiData = [], isLoading } = useQuery({
-    queryKey: ['activities'],
+    queryKey: QUERY_KEYS.ACTIVITIES,
     queryFn: fetchActivities,
   })
 
@@ -38,11 +39,11 @@ export function useActivities() {
   }
 
   const createActivity = async (values: Omit<ActivityRecord, 'id'>) => {
-    await toast.promise(db.activities.add(values), {
-      loading: 'Creating activity…',
-      success: 'Activity created!',
-      error: 'Failed to create activity.',
-    })
+   await toast.promise(db.activities.add(values), {
+     loading: ACTIVITY_MESSAGES.CREATE.LOADING,
+     success: ACTIVITY_MESSAGES.CREATE.SUCCESS,
+     error: ACTIVITY_MESSAGES.CREATE.ERROR,
+   })
     loadFromDB()
   }
 
@@ -50,20 +51,20 @@ export function useActivities() {
     id: number,
     values: Omit<ActivityRecord, 'id'>,
   ) => {
-    await toast.promise(db.activities.update(id, values), {
-      loading: 'Saving changes…',
-      success: 'Activity updated!',
-      error: 'Failed to update activity.',
-    })
+   await toast.promise(db.activities.update(id, values), {
+     loading: ACTIVITY_MESSAGES.UPDATE.LOADING,
+     success: ACTIVITY_MESSAGES.UPDATE.SUCCESS,
+     error: ACTIVITY_MESSAGES.UPDATE.ERROR,
+   })
     loadFromDB()
   }
 
   const deleteActivity = async (id: number) => {
-    await toast.promise(db.activities.delete(id), {
-      loading: 'Deleting…',
-      success: 'Activity deleted.',
-      error: 'Failed to delete activity.',
-    })
+   await toast.promise(db.activities.delete(id), {
+     loading: ACTIVITY_MESSAGES.DELETE.LOADING,
+     success: ACTIVITY_MESSAGES.DELETE.SUCCESS,
+     error: ACTIVITY_MESSAGES.DELETE.ERROR,
+   })
     loadFromDB()
   }
 

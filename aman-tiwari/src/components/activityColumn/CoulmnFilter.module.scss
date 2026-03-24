@@ -4,7 +4,7 @@
   position: absolute;
   top: calc(100% + 6px);
   right: 0;
-  z-index: 300;
+  z-index: $z-panel;
   background: $color-white;
   border-radius: $spacing-sm;
   box-shadow: $shadow-lg;
@@ -55,7 +55,7 @@
   border-radius: $spacing-xs;
   background: $color-border-light;
 
-  border: 1px solid $color-gray;
+  border: $border-xs;
   transition: border-color 0.2s;
 
   &:focus-within {
@@ -65,7 +65,7 @@
 
 .displayValue {
   flex: 1;
-  font-size: 12px;
+  font-size: $font-size-xs;
   color: $color-text-main;
   letter-spacing: 0.4px;
   pointer-events: none;
@@ -74,12 +74,12 @@
 }
 
 .placeholder {
-  color: #8898aa;
+  color: $color-gray;
 }
 
 .hiddenInput {
   font-family: $font-primary;
-  font-size: 12px;
+  font-size: $font-size-xs;
   position: absolute;
   inset: 0;
   opacity: 0;
@@ -91,24 +91,24 @@
 .iconBtn {
   @include flex-center;
   flex-shrink: 0;
-  width: 30px;
-  height: 30px;
-  background: #ffffff;
+  width: $spacing-30;
+  height: $spacing-30;
+  background: $color-white;
   border: none !important;
-  border-left: 1px solid #dde3ef !important;
+  border-left: $border-xs !important;
   border-radius: 0 4px 4px 0;
-  color: #3f3e3e;
+  color: $color-gray;
   cursor: pointer;
   transition: background 0.15s;
   z-index: 1;
 
   &:hover {
-    background: #e8eaf0;
+    background: $color-light;
   }
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: $spacing-14;
+    height: $spacing-14;
   }
 }
 
@@ -118,11 +118,11 @@
   &::after {
     content: '';
     position: absolute;
-    right: 10px;
+    right: $spacing-s;
     top: 50%;
     transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
+    width: $spacing-sm;
+    height: $spacing-sm;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238898aa' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: contain;
@@ -132,12 +132,12 @@
 
 .select {
   font-family: $font-primary;
-  font-size: 12px;
-  color: #3b3b3b;
+  font-size: $font-size-xs;
+  color: $color-gray;
   background: $color-border-light;
-  border: 1px solid $color-gray;
-  border-radius: 6px;
-  padding: 8px 28px 8px 10px;
+  border: $border-xs;
+  border-radius: $spacing-6;
+  padding: $spacing-sm $spacing-lx $spacing-sm $spacing-s;
   width: 100%;
   appearance: none;
   outline: none;
@@ -145,25 +145,25 @@
   transition: border-color 0.15s;
 
   &:focus {
-    border-color: #4979c7;
+    border-color: $color-secondary;
   }
 }
 
 .actions {
   display: flex;
-  gap: 8px;
-  margin-top: 2px;
+  gap: $spacing-sm;
+  margin-top: $spacing-vsm;
 }
 
 .resetBtn,
 .filterBtn {
   flex: 1;
-  padding: 7px 0;
+  padding: $spacing-6 0;
   border: none;
-  border-radius: 6px;
+  border-radius: $spacing-6;
   font-family: $font-primary;
-  font-size: 12px;
-  font-weight: 600;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-l;
   cursor: pointer;
   transition: opacity 0.15s;
 
@@ -173,11 +173,11 @@
 }
 
 .resetBtn {
-  background: #e2e8f0;
-  color: #4a5568;
+  background: $color-light;
+  color: $color-text-light;
 }
 
 .filterBtn {
-  background: #4979c7;
-  color: #fff;
+  background: $color-secondary;
+  color: $color-white;
 }

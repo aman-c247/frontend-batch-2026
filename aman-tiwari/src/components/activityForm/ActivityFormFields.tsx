@@ -1,7 +1,13 @@
+
 'use client'
+
+import {
+  useRef,
+} from 'react'
+import type { UseFormRegisterReturn } from 'react-hook-form'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
-import { useRef } from 'react'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
+import { ACTIVITY_FORM_TEXT } from './ActivityForm.constants'
 
 type YesNo = 'yes' | 'no'
 type ToggleField =
@@ -9,6 +15,7 @@ type ToggleField =
   | 'assignToProject'
   | 'recurringActivity'
   | 'personalActivity'
+
 
 interface LabelProps {
   htmlFor?: string
@@ -28,13 +35,18 @@ export const FieldLabel = ({
   </label>
 )
 
+
 export const FieldError = ({ message }: { message?: string }) =>
   message ? <span className={styles.required}>{message}</span> : null
 
+
 interface SelectFieldProps {
   id?: string
-  value: string
-  onChange: (val: string) => void
+
+  value?: string
+  onChange?: (val: string) => void
+
+  registerProps?: UseFormRegisterReturn
   disabled?: boolean
   children: React.ReactNode
   error?: string
@@ -43,6 +55,7 @@ export const SelectField = ({
   id,
   value,
   onChange,
+  registerProps,
   disabled,
   children,
   error,
@@ -51,9 +64,17 @@ export const SelectField = ({
     <select
       id={id}
       className={styles.select}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
+
+      {...(registerProps ?? {})}
+
+      {...(!registerProps && value !== undefined
+        ? {
+            value,
+            onChange: (e: React.ChangeEvent<HTMLSelectElement>) =>
+              onChange?.(e.target.value),
+          }
+        : {})}
     >
       {children}
     </select>
@@ -61,14 +82,21 @@ export const SelectField = ({
   </>
 )
 
+
 interface DateFieldProps {
   id?: string
   value: string
   onChange: (val: string) => void
+  registerProps?: UseFormRegisterReturn
   error?: string
 }
-
-export const DateField = ({ id, value, onChange, error }: DateFieldProps) => {
+export const DateField = ({
+  id,
+  value,
+  onChange,
+  registerProps,
+  error,
+}: DateFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   const formatDisplay = (val: string) => val.replace(/-/g, '/')
@@ -80,17 +108,35 @@ export const DateField = ({ id, value, onChange, error }: DateFieldProps) => {
           {value ? (
             formatDisplay(value)
           ) : (
-            <span className={styles.placeholder}>Choose a due date</span>
+              <span className={styles.placeholder}>{ACTIVITY_FORM_TEXT.placeholders.dueDate}</span>
           )}
         </span>
 
         <input
-          ref={inputRef}
+          ref={(node) => {
+
+            ;(
+              inputRef as React.MutableRefObject<HTMLInputElement | null>
+            ).current = node
+            if (registerProps?.ref) {
+              if (typeof registerProps.ref === 'function')
+                registerProps.ref(node)
+              else
+                (
+                  registerProps.ref as React.MutableRefObject<HTMLInputElement | null>
+                ).current = node
+            }
+          }}
           id={id}
           type="date"
           className={styles.hiddenInput}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => {
+            onChange(e.target.value)
+            registerProps?.onChange?.(e)
+          }}
+          onBlur={registerProps?.onBlur}
+          name={registerProps?.name}
         />
 
         <button
@@ -98,7 +144,6 @@ export const DateField = ({ id, value, onChange, error }: DateFieldProps) => {
           className={styles.iconBtn}
           onClick={() => inputRef.current?.showPicker()}
         >
-
           <IconCalendar />
         </button>
       </div>
@@ -126,7 +171,7 @@ export const YesNoToggle = ({
       onClick={() => onChange(field, 'yes')}
       disabled={disabled}
     >
-      YES
+     {ACTIVITY_FORM_TEXT.toggles.yes}
     </button>
     <button
       type="button"
@@ -134,7 +179,7 @@ export const YesNoToggle = ({
       onClick={() => onChange(field, 'no')}
       disabled={disabled}
     >
-      NO
+      {ACTIVITY_FORM_TEXT.toggles.no}
     </button>
   </div>
 )

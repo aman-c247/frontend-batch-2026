@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import styles from './CoulmnFilter.module.scss'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
+import { FILTER_TEXT } from './activityColumn.constants'
 
 export interface ColumnFilters {
   dueDateRange: string
@@ -59,15 +60,16 @@ export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: Props) => {
 
   return (
     <div ref={panelRef} className={styles.panel}>
-
       <div className={styles.field}>
-        <label className={styles.label}>Activity Due Date</label>
+        <label className={styles.label}>{FILTER_TEXT.DUE}</label>
         <div className={styles.dateWrapper}>
           <span className={styles.displayValue}>
             {dueDateRange ? (
               formatDisplay(dueDateRange)
             ) : (
-              <span className={styles.placeholder}>Choose a due date</span>
+              <span className={styles.placeholder}>
+                {FILTER_TEXT.CHOOSE_DATE}
+              </span>
             )}
           </span>
           <input
@@ -89,7 +91,7 @@ export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: Props) => {
 
       {/* Priority */}
       <div className={styles.field}>
-        <label className={styles.label}>Priority</label>
+        <label className={styles.label}>{FILTER_TEXT.PRIORITY}</label>
         <div className={styles.selectWrapper}>
           <select
             className={styles.select}
@@ -107,10 +109,10 @@ export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: Props) => {
 
       <div className={styles.actions}>
         <button className={styles.resetBtn} onClick={handleReset}>
-          Reset
+          {FILTER_TEXT.RESET}
         </button>
         <button className={styles.filterBtn} onClick={handleFilter}>
-          Filter
+          {FILTER_TEXT.FILTER}
         </button>
       </div>
     </div>

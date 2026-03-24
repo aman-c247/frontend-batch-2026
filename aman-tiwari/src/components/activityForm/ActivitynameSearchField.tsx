@@ -5,6 +5,7 @@ import { db } from '@/lib/db'
 import { FieldLabel, FieldError } from './ActivityFormFields'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
 import fieldStyles from './ActivitynameSearch.module.scss'
+import { ACTIVITY_FORM_TEXT } from './ActivityForm.constants'
 
 interface Props {
   value: string
@@ -44,8 +45,8 @@ export const ActivityNameSearchField = ({
     const matched = Array.from(
       new Set(
         all
-          .map((a) => a.activityName)
-          .filter((n): n is string => !!n && n.toLowerCase().includes(lower)),
+          .map((activity) =>activity.activityName)
+          .filter((name): name is string => !!name && name.toLowerCase().includes(lower)),
       ),
     )
 
@@ -148,7 +149,7 @@ export const ActivityNameSearchField = ({
             checked={addToDataSet}
             onChange={(e) => onAddToDataSetChange(e.target.checked)}
           />
-          <label htmlFor="addToDataSet">Add Activity Name to Data Set</label>
+          <label htmlFor="addToDataSet">{ACTIVITY_FORM_TEXT.buttons.add_activity}</label>
         </div>
       )}
     </div>

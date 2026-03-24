@@ -8,8 +8,13 @@ import {
   ACTIVITY_FORM_TEXT,
   ACTIVITY_TYPE_OPTIONS,
   COMMUNICATION_OPTIONS,
+  DEPARTMENT_OPTION,
   FREQUENCY_OPTIONS,
+  ORG_OPTION,
+  PERSON_OPTION,
+  POSITION_OPTION,
   PRIORITY_OPTIONS,
+  PROJECT_OPTION,
   STATUS_OPTIONS,
 } from './ActivityForm.constants'
 import { useActivityForm } from '@/components/hooks/useActivityForm'
@@ -48,6 +53,21 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
     recurringActivity,
     personalActivity,
     note,
+
+    registerActivityType,
+    registerCarrier,
+    registerSubType,
+    registerDueDate,
+    registerPriority,
+    registerFollowUpDate,
+    registerActivityStatus,
+    registerInitialCommunication,
+    registerOrganization,
+    registerDepartment,
+    registerPosition,
+    registerPerson,
+    registerProject,
+    registerFrequency,
   } = useActivityForm({ editRecord, onSaved, onClose })
 
   const { watch, setValue, control } = form
@@ -64,7 +84,6 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        {/* ── Header ── */}
         <div className={styles.header}>
           <h2 className={styles.title}>
             {editRecord
@@ -72,7 +91,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
               : ACTIVITY_FORM_TEXT.title.create}
           </h2>
           <button type="button" className={styles.closeBtn} onClick={onClose}>
-            ✕
+            {ACTIVITY_FORM_TEXT.buttons.close}
           </button>
         </div>
 
@@ -84,10 +103,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                 required
               />
               <SelectField
-                value={watch('activityType')}
-                onChange={(val) =>
-                  setValue('activityType', val, { shouldValidate: true })
-                }
+                registerProps={registerActivityType()}
                 error={errors.activityType?.message}
               >
                 {ACTIVITY_TYPE_OPTIONS.map((opt) => (
@@ -102,21 +118,17 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
               <div className={styles.field}>
                 <FieldLabel text={ACTIVITY_FORM_TEXT.fields.carrier} required />
                 <SelectField
-                  value={watch('carrier') ?? ''}
-                  onChange={(val) =>
-                    setValue('carrier', val, { shouldValidate: true })
-                  }
+                  registerProps={registerCarrier()}
                   error={errors.carrier?.message}
                 >
                   <option value="West side Organization">
-                    West side Organization
+                    {ACTIVITY_FORM_TEXT.fields.carrier_option}
                   </option>
                 </SelectField>
               </div>
             )}
           </div>
 
-          {/* Sub Type */}
           {isAccount && (
             <div className={styles.row}>
               <div className={styles.field}>
@@ -125,17 +137,15 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                   requiredText="(Required)"
                   required
                 />
-                <SelectField
-                  value={watch('subType') ?? ''}
-                  onChange={(val) => setValue('subType', val)}
-                >
-                  <option value="Main Account">Main Account</option>
+                <SelectField registerProps={registerSubType()}>
+                  <option value="Main Account">
+                    {ACTIVITY_FORM_TEXT.fields.mainAccount_option}
+                  </option>
                 </SelectField>
               </div>
             </div>
           )}
 
-          {/* Activity Name */}
           <ActivityNameSearchField
             key={editRecord?.id ?? 'new'}
             value={activityName ?? ''}
@@ -147,7 +157,6 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
             onAddToDataSetChange={(val) => setValue('addToDataSet', val)}
           />
 
-          {/* Activity Details */}
           <div className={styles.fullRow}>
             <div className={styles.field}>
               <FieldLabel text={ACTIVITY_FORM_TEXT.fields.activityDetails} />
@@ -168,7 +177,6 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
             </div>
           </div>
 
-          {/* Due Date + Priority */}
           <div className={styles.row}>
             <div className={styles.field}>
               <FieldLabel text={ACTIVITY_FORM_TEXT.fields.dueDate} required />
@@ -177,16 +185,14 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                 onChange={(val) =>
                   setValue('dueDate', val, { shouldValidate: true })
                 }
+                registerProps={registerDueDate()}
                 error={errors.dueDate?.message}
               />
             </div>
             <div className={styles.field}>
               <FieldLabel text={ACTIVITY_FORM_TEXT.fields.priority} required />
               <SelectField
-                value={watch('priority')}
-                onChange={(val) =>
-                  setValue('priority', val, { shouldValidate: true })
-                }
+                registerProps={registerPriority()}
                 error={errors.priority?.message}
               >
                 {PRIORITY_OPTIONS.map((opt) => (
@@ -204,6 +210,8 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
               <DateField
                 value={watch('followUpDate') ?? ''}
                 onChange={(val) => setValue('followUpDate', val)}
+                registerProps={registerFollowUpDate()}
+                error={errors.followUpDate?.message}
               />
             </div>
             <div className={styles.field}>
@@ -212,10 +220,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                 required
               />
               <SelectField
-                value={watch('activityStatus')}
-                onChange={(val) =>
-                  setValue('activityStatus', val, { shouldValidate: true })
-                }
+                registerProps={registerActivityStatus()}
                 error={errors.activityStatus?.message}
               >
                 {STATUS_OPTIONS.map((opt) => (
@@ -232,10 +237,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
               <FieldLabel
                 text={ACTIVITY_FORM_TEXT.fields.initialCommunication}
               />
-              <SelectField
-                value={watch('initialCommunication') ?? ''}
-                onChange={(val) => setValue('initialCommunication', val)}
-              >
+              <SelectField registerProps={registerInitialCommunication()}>
                 {COMMUNICATION_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
@@ -282,16 +284,14 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                         required
                       />
                       <SelectField
-                        value={watch('organization') ?? ''}
-                        onChange={(val) =>
-                          setValue('organization', val, {
-                            shouldValidate: true,
-                          })
-                        }
+                        registerProps={registerOrganization()}
                         error={errors.organization?.message}
                       >
-                        <option value="">Select Organization</option>
-                        <option value="C247 Infotech">C247 Infotech</option>
+                        {ORG_OPTION.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </SelectField>
                     </div>
                     <div className={styles.field}>
@@ -300,16 +300,14 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                         required
                       />
                       <SelectField
-                        value={watch('department') ?? ''}
-                        onChange={(val) =>
-                          setValue('department', val, { shouldValidate: true })
-                        }
+                        registerProps={registerDepartment()}
                         error={errors.department?.message}
                       >
-                        <option value="">Select Department</option>
-                        <option value="Development Studio">
-                          Development Studio
-                        </option>
+                        {DEPARTMENT_OPTION.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </SelectField>
                     </div>
                   </div>
@@ -317,24 +315,22 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                   <div className={styles.row}>
                     <div className={styles.field}>
                       <FieldLabel text={ACTIVITY_FORM_TEXT.fields.position} />
-                      <SelectField
-                        value={watch('position') ?? ''}
-                        onChange={(val) => setValue('position', val)}
-                      >
-                        <option value="">Select Position</option>
-                        <option value="Software Developer">
-                          Software Developer
-                        </option>
+                      <SelectField registerProps={registerPosition()}>
+                        {POSITION_OPTION.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.label}
+                          </option>
+                        ))}
                       </SelectField>
                     </div>
                     <div className={styles.field}>
                       <FieldLabel text={ACTIVITY_FORM_TEXT.fields.person} />
-                      <SelectField
-                        value={watch('person') ?? ''}
-                        onChange={(val) => setValue('person', val)}
-                      >
-                        <option value="">Select Person</option>
-                        <option value="Aman">Aman</option>
+                      <SelectField registerProps={registerPerson()}>
+                        {PERSON_OPTION.map((opt) => (
+                          <option key={opt.value} value={opt.value}>
+                            {opt.value}
+                          </option>
+                        ))}
                       </SelectField>
                     </div>
                   </div>
@@ -358,14 +354,14 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                       required
                     />
                     <SelectField
-                      value={watch('project') ?? ''}
-                      onChange={(val) =>
-                        setValue('project', val, { shouldValidate: true })
-                      }
+                      registerProps={registerProject()}
                       error={errors.project?.message}
                     >
-                      <option value="">Select Project</option>
-                      <option value="Activity Task">Activity Task</option>
+                      {PROJECT_OPTION.map((opt) => (
+                        <option key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </option>
+                      ))}
                     </SelectField>
                   </div>
                 </div>
@@ -407,10 +403,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
                     required
                   />
                   <SelectField
-                    value={watch('frequency') ?? ''}
-                    onChange={(val) =>
-                      setValue('frequency', val, { shouldValidate: true })
-                    }
+                    registerProps={registerFrequency()}
                     error={errors.frequency?.message}
                   >
                     {FREQUENCY_OPTIONS.map((opt) => (
@@ -447,7 +440,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
           </div>
           <button type="button" className={styles.submitBtn} onClick={onSubmit}>
             {editRecord
-              ? ACTIVITY_FORM_TEXT.buttons.addNote
+              ? ACTIVITY_FORM_TEXT.buttons.save
               : ACTIVITY_FORM_TEXT.buttons.create}
           </button>
         </div>

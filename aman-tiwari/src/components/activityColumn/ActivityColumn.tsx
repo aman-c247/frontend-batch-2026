@@ -56,11 +56,11 @@ export const ActivityColumn = ({ status, data, onEdit, onDelete }: Props) => {
   const isFiltered = !!(filters.dueDateRange || filters.priority)
 
   const filtered = data
-    .filter((a) => a.status === status)
+    .filter((activity) => activity.status === status)
     .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    .filter((a) => {
-      if (filters.priority && a.priority !== filters.priority) return false
-      if (!matchesDueRange(a, filters.dueDateRange)) return false
+    .filter((activity) => {
+      if (filters.priority && activity.priority !== filters.priority) return false
+      if (!matchesDueRange(activity, filters.dueDateRange)) return false
       return true
     })
 
@@ -87,7 +87,7 @@ export const ActivityColumn = ({ status, data, onEdit, onDelete }: Props) => {
           {showFilter && (
             <ColumnFilterPanel
               anchorRef={filterBtnRef}
-              onApply={(f) => setFilters(f)}
+              onApply={(filter) => setFilters(filter)}
               onClose={() => setShowFilter(false)}
             />
           )}
