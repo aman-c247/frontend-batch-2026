@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { fetchActivities } from '@/services/activities.service'
 import { db } from '@/lib/db'
-import type { Activity, ActivityRecord } from '@/types/activity.types'
+import type { ActivityRecord } from '@/types/activity.types'
 import { ACTIVITY_MESSAGES, QUERY_KEYS } from './hooks.constants'
 import { useLiveQuery } from 'dexie-react-hooks'
 

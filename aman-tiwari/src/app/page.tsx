@@ -20,29 +20,33 @@ import { useCallback, useMemo } from 'react'
 const STATUSES: Status[] = ['open', 'onHold', 'inProgress', 'resolved']
 
 export default function ActivityPage() {
-  const { activities, isLoading, getRecord, deleteActivity } =
-    useActivities()
+  const { activities, isLoading, getRecord, deleteActivity } = useActivities()
 
-  const { activeItem, handleDragStart, handleDragEnd } = useActivityDrag({
-    activities
+  const { activeItem, onDragEnd, onDragStart } = useActivityDrag({
+    activities,
   })
 
   const { showModal, editRecord, openCreate, openEdit, closeModal } =
     useActivityModal()
 
   const activitiesByStatus = useMemo(() => {
-    return STATUSES.reduce((acc, status) => {
-      acc[status] = activities.filter((activity) => activity.status)
-      return acc
-    },{} as Record<Status,typeof activities>)
-  },[activities])
+    return STATUSES.reduce(
+      (acc, status) => {
+        acc[status] = activities.filter((activity) => activity.status)
+        return acc
+      },
+      {} as Record<Status, typeof activities>,
+    )
+  }, [activities])
 
-  const handleEdit = useCallback(async (id: number) => {
-    const record = await getRecord(id)
-    if (record) openEdit(record)
-  },[getRecord,openEdit])
+  const handleEdit = useCallback(
+    async (id: number) => {
+      const record = await getRecord(id)
+      if (record) openEdit(record)
+    },
+    [getRecord, openEdit],
+  )
 
-  
   if (isLoading) return <div className="p-4">Loading...</div>
 
   return (
@@ -52,8 +56,8 @@ export default function ActivityPage() {
 
       <DndContext
         collisionDetection={closestCorners}
-        onDragStart={(e) => handleDragStart(Number(e.active.id))}
-        onDragEnd={handleDragEnd}
+        onDragStart={onDragStart}
+        onDragEnd={onDragEnd}
       >
         <Row className={styles.contentWrapper}>
           {STATUSES.map((status) => (

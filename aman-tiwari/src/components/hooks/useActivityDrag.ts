@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { DragEndEvent } from '@dnd-kit/core'
+import { useCallback, useState } from 'react'
+import { DragEndEvent, type DragStartEvent } from '@dnd-kit/core'
 import toast from 'react-hot-toast'
 import { db } from '@/lib/db'
 import type { Activity, Status } from '@/types/activity.types'
@@ -16,7 +16,7 @@ const STATUS_LABELS: Record<Status, string> = {
 
 interface UseActivityDragOptions {
   activities: Activity[]
-  
+
 }
 
 export function useActivityDrag({
@@ -25,25 +25,31 @@ export function useActivityDrag({
 }: UseActivityDragOptions) {
   const [activeItem, setActiveItem] = useState<Activity | null>(null)
 
-  const handleDragStart = (id: number) => {
-    const item = activities.find((a) => a.id === id)
-    setActiveItem(item ?? null)
-  }
+const onDragStart = useCallback(
+  (event: DragStartEvent) => {
+    const id = parseInt(event.active.id as string, 10)
+    if (isNaN(id)) return
 
-  const handleDragEnd = async (event: DragEndEvent) => {
+    const item = activities.find((activity) => activity.id === id)
+    setActiveItem(item || null)
+  },
+  [activities],
+)
+  const onDragEnd = useCallback(async (event: DragEndEvent) => {
 
     setActiveItem(null)
 
     const { active, over } = event
     if (!over) return
 
-    const activeId = Number(active.id)
-    const overId = over.id
+    const activeId = parseInt(active.id as string, 10)
+    if (isNaN(activeId)) return
 
-    const all = await db.activities.toArray()
-    const activeActivity = all.find((a) => a.id === activeId)
+
+    const all = activities
+    const activeActivity = all.find((activity) => activity.id === activeId)
     if (!activeActivity) return
-
+   const overId = over.id
 
     if (STATUS_SET.has(String(overId))) {
       const newStatus = overId as Status
@@ -95,7 +101,7 @@ export function useActivityDrag({
     }
 
 
-  }
+  },[activities])
 
-  return { activeItem, handleDragStart, handleDragEnd }
+  return { activeItem, onDragEnd,onDragStart }
 }
