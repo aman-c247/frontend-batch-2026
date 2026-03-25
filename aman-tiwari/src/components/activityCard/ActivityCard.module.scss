@@ -42,7 +42,8 @@
 }
 
 .meta {
-  @include flex-center(8px);
+  @include flex(center, start);
+  gap: $spacing-6;
   margin-bottom: $spacing-s;
   flex-wrap: wrap;
 }
@@ -64,7 +65,8 @@
 }
 
 .stats {
-  @include flex-center(10px);
+  @include flex(center, start);
+  gap: $spacing-6;
   margin-bottom: $spacing-s;
 }
 
@@ -79,7 +81,7 @@
   @include flex-between;
   margin: $card-foter-margin;
   background-color: $color-bg-footer;
-  border-radius:$radius-action;
+  border-radius: $radius-action;
   padding: $spacing-6;
 }
 
