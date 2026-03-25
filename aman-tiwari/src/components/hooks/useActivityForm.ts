@@ -11,13 +11,11 @@ import { ACTIVITY_FORM_MESSAGES, ACTIVITY_MESSAGES } from './hooks.constants'
 
 interface UseActivityFormOptions {
   editRecord?: ActivityRecord
-  onSaved: () => void
   onClose: () => void
 }
 
 export function useActivityForm({
   editRecord,
-  onSaved,
   onClose,
 }: UseActivityFormOptions) {
   const form = useForm<ActivityFormValues>({
@@ -167,7 +165,6 @@ export function useActivityForm({
       },
     )
 
-    onSaved()
     onClose()
   })
 

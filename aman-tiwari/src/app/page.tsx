@@ -20,12 +20,11 @@ import AppToaster from '@/components/common/AppToster'
 const STATUSES: Status[] = ['open', 'onHold', 'inProgress', 'resolved']
 
 export default function ActivityPage() {
-  const { activities, isLoading, loadFromDB, getRecord, deleteActivity } =
+  const { activities, isLoading, getRecord, deleteActivity } =
     useActivities()
 
   const { activeItem, handleDragStart, handleDragEnd } = useActivityDrag({
-    activities,
-    onDragSettled: loadFromDB,
+    activities
   })
 
   const { showModal, editRecord, openCreate, openEdit, closeModal } =
@@ -70,7 +69,7 @@ export default function ActivityPage() {
       {showModal && (
         <ActivityFormModal
           onClose={closeModal}
-          onSaved={loadFromDB}
+          // onSaved={loadFromDB}
           editRecord={editRecord}
         />
       )}

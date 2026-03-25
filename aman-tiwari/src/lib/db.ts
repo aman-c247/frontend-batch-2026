@@ -8,7 +8,7 @@ class ActivityDatabase extends Dexie {
     super('ActivityDB')
     this.version(2).stores({
       activities:
-        '++id, status, priority, activityType, activityStatus, createdAt',
+        '++id, status, priority, activityType, activityStatus, createdAt, sortOrder',
     })
   }
 }

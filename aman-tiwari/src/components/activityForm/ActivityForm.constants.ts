@@ -61,9 +61,10 @@ export const PRIORITY_OPTIONS = [
 ]
 
 export const STATUS_OPTIONS = [
-  { value: 'Standard', label: 'Standard' },
-  { value: 'High', label: 'High' },
-  { value: 'Urgent', label: 'Urgent' },
+  { value: 'open', label: 'Open' },
+  { value: 'onHold', label: 'On Hold' },
+  { value: 'inProgress', label: 'In Progress' },
+  { value: 'resolved', label: 'Resolved' },
 ]
 
 export const ORG_OPTION = [

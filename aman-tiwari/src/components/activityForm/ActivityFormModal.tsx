@@ -31,11 +31,11 @@ import { ActivityNameSearchField } from './ActivitynameSearchField'
 
 interface Props {
   onClose: () => void
-  onSaved: () => void
+  // onSaved: () => void
   editRecord?: ActivityRecord
 }
 
-export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
+export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
   const [showNote, setShowNote] = useState(false)
 
   const {
@@ -68,7 +68,7 @@ export const ActivityFormModal = ({ onClose, onSaved, editRecord }: Props) => {
     registerPerson,
     registerProject,
     registerFrequency,
-  } = useActivityForm({ editRecord, onSaved, onClose })
+  } = useActivityForm({ editRecord, onClose })
 
   const { watch, setValue, control } = form
 
