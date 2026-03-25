@@ -1,12 +1,6 @@
+import type { TinyEditorProps } from '@/types/activity.types'
 import { Editor } from '@tinymce/tinymce-react'
 
-interface TinyEditorProps {
-  value: string
-  onChange: (content: string) => void
-  placeholder?: string
-  height?: number
-  width?: string | number
-}
 
 export default function TinyEditor({
   value,

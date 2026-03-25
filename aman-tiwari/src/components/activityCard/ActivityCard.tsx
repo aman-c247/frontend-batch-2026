@@ -1,8 +1,5 @@
 'use client'
 
-import { useState } from 'react'
-import { useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
 import type { Activity } from '@/types/activity.types'
 import styles from './ActivityCard.module.scss'
 import { IconUser } from '@/assets/icon/IconUser'
@@ -14,6 +11,8 @@ import { IconEdit } from '@/assets/icon/IconEdit'
 import { IconTrash } from '@/assets/icon/IconTrash'
 import { IconCalendarHeart } from '@/assets/icon/IconHeart'
 import { ConfirmDeleteModal } from '@/components/deleteModal/DeleteModal'
+import { useActivityCard } from '../hooks/useActivityCard'
+import { CARD_TEXT } from './activityCard.constants'
 
 interface Props {
   activity: Activity
@@ -22,23 +21,19 @@ interface Props {
 }
 
 export const ActivityCard = ({ activity, onEdit, onDelete }: Props) => {
-  const [showConfirm, setShowConfirm] = useState(false)
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    style,
 
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: activity.id! })
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  }
-
-  const handleDeleteClick = (e: React.MouseEvent) => {
-    e.stopPropagation()
-    setShowConfirm(true)
-  }
+    showConfirm,
+    openDelete,
+    closeDelete,
+  } = useActivityCard(activity)
 
   const handleConfirmDelete = () => {
-    setShowConfirm(false)
+    closeDelete()
     onDelete?.(activity.id!)
   }
 
@@ -66,13 +61,13 @@ export const ActivityCard = ({ activity, onEdit, onDelete }: Props) => {
 
         <div className={styles.stats}>
           <span className={styles.stat}>
-            <IconCalendarHeart /> -
+            <IconCalendarHeart /> {CARD_TEXT.DASH}
           </span>
           <span className={styles.stat}>
-            <IconChat /> 3
+            <IconChat /> {CARD_TEXT.THREE}
           </span>
           <span className={styles.stat}>
-            <IconPaperclip /> 2
+            <IconPaperclip /> {CARD_TEXT.TWO}
           </span>
         </div>
 
@@ -94,7 +89,7 @@ export const ActivityCard = ({ activity, onEdit, onDelete }: Props) => {
             <button
               className={`${styles.actionBtn} ${styles.delete}`}
               onPointerDown={(e) => e.stopPropagation()}
-              onClick={handleDeleteClick}
+              onClick={openDelete}
             >
               <IconTrash />
             </button>
@@ -103,9 +98,9 @@ export const ActivityCard = ({ activity, onEdit, onDelete }: Props) => {
       </div>
       <ConfirmDeleteModal
         show={showConfirm}
-        onHide={() => setShowConfirm(false)}
+        onHide={closeDelete}
         onConfirm={handleConfirmDelete}
-        title="Delete Activity"
+        title={CARD_TEXT.TITLE}
         message={activity.title}
       />
     </>

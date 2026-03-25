@@ -1,5 +1,8 @@
 @use '@/styles/abstracts' as *;
 
+$svg-width:36px;
+$svg-height:36px;
+
 .column {
   background: $color-light;
   border-radius: $radius-lg;
@@ -52,8 +55,8 @@
   color: $color-text-light;
 
   svg {
-    width: 36px;
-    height: 36px;
+    width: $svg-width;
+    height: $svg-height;
   }
   &:hover {
     background: $color-light;

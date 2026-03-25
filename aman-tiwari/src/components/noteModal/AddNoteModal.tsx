@@ -2,14 +2,10 @@
 
 import { useState, useEffect, useRef } from 'react'
 import styles from './AddNoteModal.module.scss'
+import type { NoteProps } from '@/types/activity.types'
+import { ACTIVITY_FORM_TEXT } from '../activityForm/ActivityForm.constants'
 
-interface Props {
-  initialNote?: string
-  onSave: (note: string) => void
-  onClose: () => void
-}
-
-export const AddNoteModal = ({ initialNote = '', onSave, onClose }: Props) => {
+export const AddNoteModal = ({ initialNote = '', onSave, onClose }: NoteProps) => {
   const [notes, setNotes] = useState<string[]>(() =>
     initialNote.trim() ? initialNote.split('\n---\n').filter(Boolean) : [],
   )
@@ -42,16 +38,16 @@ export const AddNoteModal = ({ initialNote = '', onSave, onClose }: Props) => {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.header}>
-          <h2 className={styles.title}>Add Note</h2>
+          <h2 className={styles.title}>{ACTIVITY_FORM_TEXT.buttons.addNote}</h2>
           <button className={styles.closeBtn} onClick={onClose}>
-            ✕
+          {ACTIVITY_FORM_TEXT.buttons.close}
           </button>
         </div>
 
         <div className={styles.body}>
           <div className={styles.noteList} ref={listRef}>
             {notes.length === 0 ? (
-              <div className={styles.empty}>Add your note below.</div>
+              <div className={styles.empty}>{ACTIVITY_FORM_TEXT.placeholders.noteBelow}</div>
             ) : (
               notes.map((n, i) => (
                 <div key={i} className={styles.noteBubble}>
@@ -63,7 +59,7 @@ export const AddNoteModal = ({ initialNote = '', onSave, onClose }: Props) => {
           <div className={styles.inputRow}>
             <textarea
               className={styles.textarea}
-              placeholder="Write a note"
+              placeholder={ACTIVITY_FORM_TEXT.placeholders.write_note}
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -77,9 +73,9 @@ export const AddNoteModal = ({ initialNote = '', onSave, onClose }: Props) => {
             className={styles.addBtn}
             onClick={handleAdd}
             disabled={!draft.trim()}
-            title="Add note"
+            title={ACTIVITY_FORM_TEXT.buttons.addNote}
           >
-            Add
+            {ACTIVITY_FORM_TEXT.buttons.addNote}
           </button>
         </div>
       </div>

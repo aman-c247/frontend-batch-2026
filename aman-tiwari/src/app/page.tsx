@@ -14,10 +14,10 @@ import { useActivityDrag } from '@/components/hooks/useActivityDrag'
 import { useActivityModal } from '@/components/hooks/useActivityModal'
 
 import styles from '@/components/MainPage.module.scss'
-import type { Status } from '@/types/activity.types'
-import { useCallback, useMemo } from 'react'
 
-const STATUSES: Status[] = ['open', 'onHold', 'inProgress', 'resolved']
+import { useCallback } from 'react'
+import { STATUSES } from '@/components/constants'
+import { useActivitiesByStatus } from '@/components/hooks/useActivityBystatus'
 
 export default function ActivityPage() {
   const { activities, isLoading, getRecord, deleteActivity } = useActivities()
@@ -29,15 +29,7 @@ export default function ActivityPage() {
   const { showModal, editRecord, openCreate, openEdit, closeModal } =
     useActivityModal()
 
-  const activitiesByStatus = useMemo(() => {
-    return STATUSES.reduce(
-      (acc, status) => {
-        acc[status] = activities.filter((activity) => activity.status)
-        return acc
-      },
-      {} as Record<Status, typeof activities>,
-    )
-  }, [activities])
+  const activitiesByStatus = useActivitiesByStatus(activities,STATUSES)
 
   const handleEdit = useCallback(
     async (id: number) => {
@@ -79,7 +71,6 @@ export default function ActivityPage() {
       {showModal && (
         <ActivityFormModal
           onClose={closeModal}
-          // onSaved={loadFromDB}
           editRecord={editRecord}
         />
       )}

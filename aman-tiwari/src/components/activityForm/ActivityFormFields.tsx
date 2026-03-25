@@ -1,28 +1,14 @@
-
 'use client'
 
 import {
   useRef,
 } from 'react'
-import type { UseFormRegisterReturn } from 'react-hook-form'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
 import { ACTIVITY_FORM_TEXT } from './ActivityForm.constants'
-
-type YesNo = 'yes' | 'no'
-type ToggleField =
-  | 'delegatedActivity'
-  | 'assignToProject'
-  | 'recurringActivity'
-  | 'personalActivity'
+import type { DateFieldProps, LabelProps, SelectFieldProps, ToggleProps, ToggleRowProps } from '@/types/activity.types'
 
 
-interface LabelProps {
-  htmlFor?: string
-  text: string
-  required?: boolean
-  requiredText?: string
-}
 export const FieldLabel = ({
   htmlFor,
   text,
@@ -40,17 +26,7 @@ export const FieldError = ({ message }: { message?: string }) =>
   message ? <span className={styles.required}>{message}</span> : null
 
 
-interface SelectFieldProps {
-  id?: string
 
-  value?: string
-  onChange?: (val: string) => void
-
-  registerProps?: UseFormRegisterReturn
-  disabled?: boolean
-  children: React.ReactNode
-  error?: string
-}
 export const SelectField = ({
   id,
   value,
@@ -83,13 +59,7 @@ export const SelectField = ({
 )
 
 
-interface DateFieldProps {
-  id?: string
-  value: string
-  onChange: (val: string) => void
-  registerProps?: UseFormRegisterReturn
-  error?: string
-}
+
 export const DateField = ({
   id,
   value,
@@ -152,12 +122,7 @@ export const DateField = ({
   )
 }
 
-interface ToggleProps {
-  field: ToggleField
-  value: YesNo
-  disabled?: boolean
-  onChange: (field: ToggleField, value: YesNo) => void
-}
+
 export const YesNoToggle = ({
   field,
   value,
@@ -184,13 +149,6 @@ export const YesNoToggle = ({
   </div>
 )
 
-interface ToggleRowProps {
-  label: string
-  field: ToggleField
-  value: YesNo
-  disabled?: boolean
-  onChange: (field: ToggleField, value: YesNo) => void
-}
 export const ToggleRow = ({
   label,
   field,

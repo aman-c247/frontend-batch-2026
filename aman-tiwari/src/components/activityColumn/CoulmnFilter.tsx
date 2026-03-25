@@ -1,14 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import styles from './CoulmnFilter.module.scss'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
-import { FILTER_TEXT } from './activityColumn.constants'
+import { FILTER_TEXT, PRIORITY_OPTIONS } from './activityColumn.constants'
+import type { ColumnFilters } from '@/types/activity.types'
+import { useColumnFilter } from '../hooks/useColumnFilter'
 
-export interface ColumnFilters {
-  dueDateRange: string
-  priority: string
-}
+
 
 interface Props {
   onApply: (filters: ColumnFilters) => void
@@ -16,47 +14,23 @@ interface Props {
   anchorRef: React.RefObject<HTMLButtonElement | null>
 }
 
-const PRIORITY_OPTIONS = [
-  { value: '', label: 'Select Priority' },
-  { value: 'urgent', label: 'Urgent' },
-  { value: 'high', label: 'High' },
-  { value: 'standard', label: 'Standard' },
-]
+
 
 export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: Props) => {
-  const [dueDateRange, setDueDateRange] = useState('')
-  const [priority, setPriority] = useState('')
-  const panelRef = useRef<HTMLDivElement>(null)
-  const dateInputRef = useRef<HTMLInputElement>(null)
+ const {
+   dueDateRange,
+   priority,
+   setDueDateRange,
+   setPriority,
 
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (
-        panelRef.current &&
-        !panelRef.current.contains(e.target as Node) &&
-        anchorRef.current &&
-        !anchorRef.current.contains(e.target as Node)
-      ) {
-        onClose()
-      }
-    }
-    document.addEventListener('mousedown', handler)
-    return () => document.removeEventListener('mousedown', handler)
-  }, [onClose, anchorRef])
+   panelRef,
+   dateInputRef,
 
-  const handleFilter = () => {
-    onApply({ dueDateRange, priority })
-    onClose()
-  }
-
-  const handleReset = () => {
-    setDueDateRange('')
-    setPriority('')
-    onApply({ dueDateRange: '', priority: '' })
-    onClose()
-  }
-
-  const formatDisplay = (val: string) => val.replace(/-/g, '/')
+   handleFilter,
+   handleReset,
+   
+   formatDisplay,
+ } = useColumnFilter(onApply, onClose, anchorRef)
 
   return (
     <div ref={panelRef} className={styles.panel}>

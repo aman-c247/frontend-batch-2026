@@ -31,7 +31,7 @@ import { ActivityNameSearchField } from './ActivitynameSearchField'
 
 interface Props {
   onClose: () => void
-  // onSaved: () => void
+
   editRecord?: ActivityRecord
 }
 
@@ -54,20 +54,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
     personalActivity,
     note,
 
-    registerActivityType,
-    registerCarrier,
-    registerSubType,
-    registerDueDate,
-    registerPriority,
-    registerFollowUpDate,
-    registerActivityStatus,
-    registerInitialCommunication,
-    registerOrganization,
-    registerDepartment,
-    registerPosition,
-    registerPerson,
-    registerProject,
-    registerFrequency,
+    registerFields,
   } = useActivityForm({ editRecord, onClose })
 
   const { watch, setValue, control } = form
@@ -103,7 +90,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                 required
               />
               <SelectField
-                registerProps={registerActivityType()}
+                registerProps={registerFields.activityType}
                 error={errors.activityType?.message}
               >
                 {ACTIVITY_TYPE_OPTIONS.map((opt) => (
@@ -118,7 +105,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
               <div className={styles.field}>
                 <FieldLabel text={ACTIVITY_FORM_TEXT.fields.carrier} required />
                 <SelectField
-                  registerProps={registerCarrier()}
+                  registerProps={registerFields.carrier}
                   error={errors.carrier?.message}
                 >
                   <option value="West side Organization">
@@ -137,7 +124,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                   requiredText="(Required)"
                   required
                 />
-                <SelectField registerProps={registerSubType()}>
+                <SelectField registerProps={registerFields.subType}>
                   <option value="Main Account">
                     {ACTIVITY_FORM_TEXT.fields.mainAccount_option}
                   </option>
@@ -185,14 +172,14 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                 onChange={(val) =>
                   setValue('dueDate', val, { shouldValidate: true })
                 }
-                registerProps={registerDueDate()}
+                registerProps={registerFields.dueDate}
                 error={errors.dueDate?.message}
               />
             </div>
             <div className={styles.field}>
               <FieldLabel text={ACTIVITY_FORM_TEXT.fields.priority} required />
               <SelectField
-                registerProps={registerPriority()}
+                registerProps={registerFields.priority}
                 error={errors.priority?.message}
               >
                 {PRIORITY_OPTIONS.map((opt) => (
@@ -210,7 +197,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
               <DateField
                 value={watch('followUpDate') ?? ''}
                 onChange={(val) => setValue('followUpDate', val)}
-                registerProps={registerFollowUpDate()}
+                registerProps={registerFields.followUpDate}
                 error={errors.followUpDate?.message}
               />
             </div>
@@ -220,7 +207,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                 required
               />
               <SelectField
-                registerProps={registerActivityStatus()}
+                registerProps={registerFields.activityStatus}
                 error={errors.activityStatus?.message}
               >
                 {STATUS_OPTIONS.map((opt) => (
@@ -237,7 +224,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
               <FieldLabel
                 text={ACTIVITY_FORM_TEXT.fields.initialCommunication}
               />
-              <SelectField registerProps={registerInitialCommunication()}>
+              <SelectField registerProps={registerFields.initialCommunication}>
                 {COMMUNICATION_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
                     {opt.label}
@@ -284,7 +271,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                         required
                       />
                       <SelectField
-                        registerProps={registerOrganization()}
+                        registerProps={registerFields.organization}
                         error={errors.organization?.message}
                       >
                         {ORG_OPTION.map((opt) => (
@@ -300,7 +287,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                         required
                       />
                       <SelectField
-                        registerProps={registerDepartment()}
+                        registerProps={registerFields.department}
                         error={errors.department?.message}
                       >
                         {DEPARTMENT_OPTION.map((opt) => (
@@ -315,7 +302,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                   <div className={styles.row}>
                     <div className={styles.field}>
                       <FieldLabel text={ACTIVITY_FORM_TEXT.fields.position} />
-                      <SelectField registerProps={registerPosition()}>
+                      <SelectField registerProps={registerFields.position}>
                         {POSITION_OPTION.map((opt) => (
                           <option key={opt.value} value={opt.value}>
                             {opt.label}
@@ -325,7 +312,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                     </div>
                     <div className={styles.field}>
                       <FieldLabel text={ACTIVITY_FORM_TEXT.fields.person} />
-                      <SelectField registerProps={registerPerson()}>
+                      <SelectField registerProps={registerFields.person}>
                         {PERSON_OPTION.map((opt) => (
                           <option key={opt.value} value={opt.value}>
                             {opt.value}
@@ -354,7 +341,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                       required
                     />
                     <SelectField
-                      registerProps={registerProject()}
+                      registerProps={registerFields.project}
                       error={errors.project?.message}
                     >
                       {PROJECT_OPTION.map((opt) => (
@@ -403,7 +390,7 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
                     required
                   />
                   <SelectField
-                    registerProps={registerFrequency()}
+                    registerProps={registerFields.frequency}
                     error={errors.frequency?.message}
                   >
                     {FREQUENCY_OPTIONS.map((opt) => (

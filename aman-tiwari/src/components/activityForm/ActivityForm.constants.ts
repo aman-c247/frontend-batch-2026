@@ -44,6 +44,8 @@ export const ACTIVITY_FORM_TEXT = {
   placeholders: {
     activityDetails: 'Write activity details here...',
     dueDate: 'Choose a due date',
+    write_note: 'Write a note',
+    noteBelow:'Add your note below.'
   },
 }
 

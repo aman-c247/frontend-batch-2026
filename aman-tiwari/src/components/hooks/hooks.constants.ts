@@ -33,7 +33,7 @@ export const ACTIVITY_FORM_MESSAGES = {
     DEPARTMENT_REQUIRED: 'Department is required',
     PROJECT_REQUIRED: 'Project is required',
     FREQUENCY_REQUIRED: 'Frequency is required',
-    FOLLOWUP_INVALID: 'Follow-up date must be on or after due date',
+    FOLLOWUP_INVALID: 'Follow-up date must be on or before due date',
   },
 
   TOAST: {

@@ -1,3 +1,5 @@
+import type { UseFormRegisterReturn } from 'react-hook-form'
+
 export type Priority = 'urgent' | 'high' | 'standard'
 export type Status = 'open' | 'onHold' | 'inProgress' | 'resolved'
 
@@ -89,4 +91,80 @@ export type ActivityFormValues = {
   project?: string
   frequency?: string
   note?: string
+}
+
+export interface ColumnFilters {
+  dueDateRange: string
+  priority: string
+}
+
+
+
+export type ToggleField =
+  | 'delegatedActivity'
+  | 'assignToProject'
+  | 'recurringActivity'
+  | 'personalActivity'
+
+
+  export interface LabelProps {
+    htmlFor?: string
+    text: string
+    required?: boolean
+    requiredText?: string
+  }
+
+
+ export  interface SelectFieldProps {
+    id?: string
+
+    value?: string
+    onChange?: (val: string) => void
+
+    registerProps?: UseFormRegisterReturn
+    disabled?: boolean
+    children: React.ReactNode
+    error?: string
+ }
+
+
+ export interface DateFieldProps {
+   id?: string
+   value: string
+   onChange: (val: string) => void
+   registerProps?: UseFormRegisterReturn
+   error?: string
+ }
+
+
+ export interface ToggleProps {
+   field: ToggleField
+   value: YesNo
+   disabled?: boolean
+   onChange: (field: ToggleField, value: YesNo) => void
+ }
+
+
+
+export interface ToggleRowProps {
+  label: string
+  field: ToggleField
+  value: YesNo
+  disabled?: boolean
+  onChange: (field: ToggleField, value: YesNo) => void
+}
+
+
+export interface TinyEditorProps {
+  value: string
+  onChange: (content: string) => void
+  placeholder?: string
+  height?: number
+  width?: string | number
+}
+
+export interface NoteProps {
+  initialNote?: string
+  onSave: (note: string) => void
+  onClose: () => void
 }
