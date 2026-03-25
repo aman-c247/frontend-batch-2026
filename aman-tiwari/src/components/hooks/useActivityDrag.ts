@@ -16,12 +16,12 @@ const STATUS_LABELS: Record<Status, string> = {
 
 interface UseActivityDragOptions {
   activities: Activity[]
-  // onDragSettled?: () => void
+  
 }
 
 export function useActivityDrag({
   activities,
-  // onDragSettled,
+
 }: UseActivityDragOptions) {
   const [activeItem, setActiveItem] = useState<Activity | null>(null)
 
@@ -61,7 +61,7 @@ export function useActivityDrag({
       })
 
       toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
-      // onDragSettled()
+
       return
     }
 
@@ -94,7 +94,7 @@ export function useActivityDrag({
       toast.success( ACTIVITY_FORM_MESSAGES.TOAST.UPDATE.SUCCESS)
     }
 
-    // onDragSettled()
+
   }
 
   return { activeItem, handleDragStart, handleDragEnd }

@@ -15,7 +15,7 @@ import { useActivityModal } from '@/components/hooks/useActivityModal'
 
 import styles from '@/components/MainPage.module.scss'
 import type { Status } from '@/types/activity.types'
-import AppToaster from '@/components/common/AppToster'
+import { useCallback, useMemo } from 'react'
 
 const STATUSES: Status[] = ['open', 'onHold', 'inProgress', 'resolved']
 
@@ -30,17 +30,23 @@ export default function ActivityPage() {
   const { showModal, editRecord, openCreate, openEdit, closeModal } =
     useActivityModal()
 
-  const handleEdit = async (id: number) => {
+  const activitiesByStatus = useMemo(() => {
+    return STATUSES.reduce((acc, status) => {
+      acc[status] = activities.filter((activity) => activity.status)
+      return acc
+    },{} as Record<Status,typeof activities>)
+  },[activities])
+
+  const handleEdit = useCallback(async (id: number) => {
     const record = await getRecord(id)
     if (record) openEdit(record)
-  }
+  },[getRecord,openEdit])
 
+  
   if (isLoading) return <div className="p-4">Loading...</div>
 
   return (
     <Container fluid className={styles.page}>
-      <AppToaster />
-
       <Header onCreateActivity={openCreate} />
       <Toolbar />
 
@@ -54,7 +60,7 @@ export default function ActivityPage() {
             <ActivityColumn
               key={status}
               status={status}
-              data={activities}
+              data={activitiesByStatus[status]}
               onEdit={handleEdit}
               onDelete={deleteActivity}
             />
