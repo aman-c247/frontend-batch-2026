@@ -98,53 +98,45 @@ export interface ColumnFilters {
   priority: string
 }
 
-
-
 export type ToggleField =
   | 'delegatedActivity'
   | 'assignToProject'
   | 'recurringActivity'
   | 'personalActivity'
 
+export interface LabelProps {
+  htmlFor?: string
+  text: string
+  required?: boolean
+  requiredText?: string
+}
 
-  export interface LabelProps {
-    htmlFor?: string
-    text: string
-    required?: boolean
-    requiredText?: string
-  }
+export interface SelectFieldProps {
+  id?: string
 
+  value?: string
+  onChange?: (val: string) => void
 
- export  interface SelectFieldProps {
-    id?: string
+  registerProps?: UseFormRegisterReturn
+  disabled?: boolean
+  children: React.ReactNode
+  error?: string
+}
 
-    value?: string
-    onChange?: (val: string) => void
+export interface DateFieldProps {
+  id?: string
+  value: string
+  onChange: (val: string) => void
+  registerProps?: UseFormRegisterReturn
+  error?: string
+}
 
-    registerProps?: UseFormRegisterReturn
-    disabled?: boolean
-    children: React.ReactNode
-    error?: string
- }
-
-
- export interface DateFieldProps {
-   id?: string
-   value: string
-   onChange: (val: string) => void
-   registerProps?: UseFormRegisterReturn
-   error?: string
- }
-
-
- export interface ToggleProps {
-   field: ToggleField
-   value: YesNo
-   disabled?: boolean
-   onChange: (field: ToggleField, value: YesNo) => void
- }
-
-
+export interface ToggleProps {
+  field: ToggleField
+  value: YesNo
+  disabled?: boolean
+  onChange: (field: ToggleField, value: YesNo) => void
+}
 
 export interface ToggleRowProps {
   label: string
@@ -153,7 +145,6 @@ export interface ToggleRowProps {
   disabled?: boolean
   onChange: (field: ToggleField, value: YesNo) => void
 }
-
 
 export interface TinyEditorProps {
   value: string
@@ -168,3 +159,23 @@ export interface NoteProps {
   onSave: (note: string) => void
   onClose: () => void
 }
+
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'primary' | 'secondary' | 'danger'
+  isLoading?: boolean
+  icon?: React.ReactNode
+  iconPosition?: 'left' | 'right'
+  size?: 'sm' | 'md' | 'lg'
+  iconOnly?: boolean
+
+}
+
+
+export interface SearchFieldProps {
+  value: string
+  onChange: (val: string) => void
+  error?: string
+  addToDataSet: boolean
+  onAddToDataSetChange: (val: boolean) => void
+}
+

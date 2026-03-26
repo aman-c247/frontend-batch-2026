@@ -4,8 +4,13 @@ import { useState, useEffect, useRef } from 'react'
 import styles from './AddNoteModal.module.scss'
 import type { NoteProps } from '@/types/activity.types'
 import { ACTIVITY_FORM_TEXT } from '../activityForm/ActivityForm.constants'
+import { Button } from '../common/Button'
 
-export const AddNoteModal = ({ initialNote = '', onSave, onClose }: NoteProps) => {
+export const AddNoteModal = ({
+  initialNote = '',
+  onSave,
+  onClose,
+}: NoteProps) => {
   const [notes, setNotes] = useState<string[]>(() =>
     initialNote.trim() ? initialNote.split('\n---\n').filter(Boolean) : [],
   )
@@ -40,14 +45,16 @@ export const AddNoteModal = ({ initialNote = '', onSave, onClose }: NoteProps) =
         <div className={styles.header}>
           <h2 className={styles.title}>{ACTIVITY_FORM_TEXT.buttons.addNote}</h2>
           <button className={styles.closeBtn} onClick={onClose}>
-          {ACTIVITY_FORM_TEXT.buttons.close}
+            {ACTIVITY_FORM_TEXT.buttons.close}
           </button>
         </div>
 
         <div className={styles.body}>
           <div className={styles.noteList} ref={listRef}>
             {notes.length === 0 ? (
-              <div className={styles.empty}>{ACTIVITY_FORM_TEXT.placeholders.noteBelow}</div>
+              <div className={styles.empty}>
+                {ACTIVITY_FORM_TEXT.placeholders.noteBelow}
+              </div>
             ) : (
               notes.map((n, i) => (
                 <div key={i} className={styles.noteBubble}>
@@ -69,14 +76,14 @@ export const AddNoteModal = ({ initialNote = '', onSave, onClose }: NoteProps) =
         </div>
 
         <div className={styles.footer}>
-          <button
-            className={styles.addBtn}
+          <Button
+            type="button"
+            className={styles.submitBtn}
             onClick={handleAdd}
-            disabled={!draft.trim()}
-            title={ACTIVITY_FORM_TEXT.buttons.addNote}
+            variant="primary"
           >
             {ACTIVITY_FORM_TEXT.buttons.addNote}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

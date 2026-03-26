@@ -1,23 +1,22 @@
 @use '@/styles/abstracts' as *;
 
-
 .footer {
   padding: 0 $spacing-ls $spacing-lg;
 }
-
-
-.addBtn {
-  width: 100%;
-  padding: $spacing-sm;
+.submitBtn {
   @include button($color-inprogress);
 
   font-size: $font-size-xs;
   font-weight: $font-weight-l;
-  letter-spacing: 0.02em;
 
-  &:active {
-    transform: translateY(0);
-  }
+  @include flex-center(0px);
+
+  gap: $spacing-6;
+}
+
+.submitBtn {
+  width: 100%;
+  letter-spacing: 0.02em;
 }
 
 .overlay {
@@ -33,7 +32,6 @@
 
   @include fade-in();
 }
-
 
 .modal {
   background: $color-white;
@@ -51,7 +49,6 @@
 
   @include slide-up();
 }
-
 
 .header {
   background: $color-primary;
@@ -102,7 +99,6 @@
   }
 }
 
-
 .body {
   flex: 1;
   display: flex;
@@ -110,7 +106,6 @@
   overflow: hidden;
   background: $color-bg-light;
 }
-
 
 .noteList {
   flex: 1;
@@ -135,7 +130,6 @@
   text-align: center;
   padding: $spacing-lg;
 }
-
 
 .noteBubble {
   align-self: flex-end;
@@ -173,7 +167,6 @@
   align-self: flex-end;
 }
 
-
 .inputRow {
   @include flex(flex-end, flex-start);
 
@@ -185,7 +178,6 @@
 
   flex-shrink: 0;
 }
-
 
 .textarea {
   flex: 1;
@@ -204,7 +196,6 @@
   @include scrollbar(3px, $color-border-light);
 }
 
-
 .sendBtn {
   @include action-button(36px, 50%);
 
@@ -215,7 +206,9 @@
 
   flex-shrink: 0;
 
-  transition: opacity $transition-fast, transform 0.1s;
+  transition:
+    opacity $transition-fast,
+    transform 0.1s;
 
   &:hover:not(:disabled) {
     opacity: 0.88;

@@ -28,6 +28,7 @@ import { IconNote } from '@/assets/icon/IconNote'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
 import TinyEditor from '../tinyEditor/TinyEditor'
 import { ActivityNameSearchField } from './ActivitynameSearchField'
+import { Button } from '../common/Button'
 
 interface Props {
   onClose: () => void
@@ -417,19 +418,25 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
 
         <div className={styles.footer}>
           <div className={styles.row}>
-            <button
+            <Button
               type="button"
+              variant="primary"
               className={styles.noteBtn}
               onClick={() => setShowNote(true)}
             >
               <IconNote /> {ACTIVITY_FORM_TEXT.buttons.addNote}
-            </button>
+            </Button>
           </div>
-          <button type="button" className={styles.submitBtn} onClick={onSubmit}>
+          <Button
+            type="button"
+            variant="primary"
+            className={styles.submitBtn}
+            onClick={onSubmit}
+          >
             {editRecord
               ? ACTIVITY_FORM_TEXT.buttons.save
               : ACTIVITY_FORM_TEXT.buttons.create}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

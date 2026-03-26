@@ -1,19 +1,10 @@
 'use client'
-
-import { useEffect, useRef, useState, useCallback } from 'react'
-import { db } from '@/lib/db'
 import { FieldLabel, FieldError } from './ActivityFormFields'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
 import fieldStyles from './ActivitynameSearch.module.scss'
 import { ACTIVITY_FORM_TEXT } from './ActivityForm.constants'
-
-interface Props {
-  value: string
-  onChange: (val: string) => void
-  error?: string
-  addToDataSet: boolean
-  onAddToDataSetChange: (val: boolean) => void
-}
+import type { SearchFieldProps } from '@/types/activity.types'
+import { useActivityNameSearch } from '../hooks/useActivityNameSearch'
 
 export const ActivityNameSearchField = ({
   value,
@@ -21,92 +12,20 @@ export const ActivityNameSearchField = ({
   error,
   addToDataSet,
   onAddToDataSetChange,
-}: Props) => {
-  const [inputValue, setInputValue] = useState(value ?? '')
-  const [suggestions, setSuggestions] = useState<string[]>([])
-  const [isOpen, setIsOpen] = useState(false)
-  const [noMatch, setNoMatch] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(-1)
+}: SearchFieldProps) => {
+  const {
+    inputValue,
+    suggestions,
+    isOpen,
+    noMatch,
+    activeIndex,
+    setIsOpen,
+    handleInput,
+    handleSelect,
+    handleKeyDown,
 
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const wrapperRef = useRef<HTMLDivElement>(null)
-
-  const search = useCallback(async (query: string) => {
-    if (!query.trim()) {
-      setSuggestions([])
-      setIsOpen(false)
-      setNoMatch(false)
-      return
-    }
-
-    const all = await db.activities.toArray()
-    const lower = query.toLowerCase()
-
-    const matched = Array.from(
-      new Set(
-        all
-          .map((activity) =>activity.activityName)
-          .filter((name): name is string => !!name && name.toLowerCase().includes(lower)),
-      ),
-    )
-
-    setSuggestions(matched)
-    setNoMatch(matched.length === 0)
-    setIsOpen(matched.length > 0)
-    setActiveIndex(-1)
-  }, [])
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value
-    setInputValue(val)
-    onChange(val)
-
-    if (debounceRef.current) clearTimeout(debounceRef.current)
-    debounceRef.current = setTimeout(() => search(val), 300)
-  }
-
-  const handleSelect = (name: string) => {
-    setInputValue(name)
-    onChange(name)
-    setSuggestions([])
-    setIsOpen(false)
-    setNoMatch(false)
-  }
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (!isOpen) return
-    if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      setActiveIndex((i) => Math.min(i + 1, suggestions.length - 1))
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      setActiveIndex((i) => Math.max(i - 1, 0))
-    } else if (e.key === 'Enter' && activeIndex >= 0) {
-      e.preventDefault()
-      handleSelect(suggestions[activeIndex])
-    } else if (e.key === 'Escape') {
-      setIsOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        wrapperRef.current &&
-        !wrapperRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      if (debounceRef.current) clearTimeout(debounceRef.current)
-    }
-  }, [])
+    wrapperRef,
+  } = useActivityNameSearch(value, onChange)
 
   return (
     <div className={styles.fullRow}>
@@ -117,8 +36,8 @@ export const ActivityNameSearchField = ({
             className={styles.input}
             placeholder="Search Activity Name"
             value={inputValue}
-            onChange={handleInput}
-            onKeyDown={handleKeyDown}
+            onChange={(e) => handleInput(e.target.value)}
+            onKeyDown={(e) => handleKeyDown(e.key)}
             onFocus={() => {
               if (suggestions.length > 0) setIsOpen(true)
             }}
@@ -149,7 +68,9 @@ export const ActivityNameSearchField = ({
             checked={addToDataSet}
             onChange={(e) => onAddToDataSetChange(e.target.checked)}
           />
-          <label htmlFor="addToDataSet">{ACTIVITY_FORM_TEXT.buttons.add_activity}</label>
+          <label htmlFor="addToDataSet">
+            {ACTIVITY_FORM_TEXT.buttons.add_activity}
+          </label>
         </div>
       )}
     </div>
