@@ -1,13 +1,16 @@
 'use client'
 
-import {
-  useRef,
-} from 'react'
+import { useRef } from 'react'
 import styles from '@/components/activityForm/ActivityFormModal.module.scss'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
 import { ACTIVITY_FORM_TEXT } from './ActivityForm.constants'
-import type { DateFieldProps, LabelProps, SelectFieldProps, ToggleProps, ToggleRowProps } from '@/types/activity.types'
-
+import type {
+  DateFieldProps,
+  LabelProps,
+  SelectFieldProps,
+  ToggleProps,
+  ToggleRowProps,
+} from '@/types/activity.types'
 
 export const FieldLabel = ({
   htmlFor,
@@ -21,11 +24,8 @@ export const FieldLabel = ({
   </label>
 )
 
-
 export const FieldError = ({ message }: { message?: string }) =>
   message ? <span className={styles.required}>{message}</span> : null
-
-
 
 export const SelectField = ({
   id,
@@ -41,9 +41,7 @@ export const SelectField = ({
       id={id}
       className={styles.select}
       disabled={disabled}
-
       {...(registerProps ?? {})}
-
       {...(!registerProps && value !== undefined
         ? {
             value,
@@ -58,8 +56,6 @@ export const SelectField = ({
   </>
 )
 
-
-
 export const DateField = ({
   id,
   value,
@@ -68,7 +64,7 @@ export const DateField = ({
   error,
 }: DateFieldProps) => {
   const inputRef = useRef<HTMLInputElement>(null)
-
+  const today = new Date().toISOString().split('T')[0]
   const formatDisplay = (val: string) => val.replace(/-/g, '/')
 
   return (
@@ -78,13 +74,14 @@ export const DateField = ({
           {value ? (
             formatDisplay(value)
           ) : (
-              <span className={styles.placeholder}>{ACTIVITY_FORM_TEXT.placeholders.dueDate}</span>
+            <span className={styles.placeholder}>
+              {ACTIVITY_FORM_TEXT.placeholders.dueDate}
+            </span>
           )}
         </span>
 
         <input
           ref={(node) => {
-
             ;(
               inputRef as React.MutableRefObject<HTMLInputElement | null>
             ).current = node
@@ -99,6 +96,7 @@ export const DateField = ({
           }}
           id={id}
           type="date"
+          min={today}
           className={styles.hiddenInput}
           value={value}
           onChange={(e) => {
@@ -122,7 +120,6 @@ export const DateField = ({
   )
 }
 
-
 export const YesNoToggle = ({
   field,
   value,
@@ -136,7 +133,7 @@ export const YesNoToggle = ({
       onClick={() => onChange(field, 'yes')}
       disabled={disabled}
     >
-     {ACTIVITY_FORM_TEXT.toggles.yes}
+      {ACTIVITY_FORM_TEXT.toggles.yes}
     </button>
     <button
       type="button"
