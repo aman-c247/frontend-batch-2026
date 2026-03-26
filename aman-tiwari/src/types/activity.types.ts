@@ -1,3 +1,4 @@
+import type { Ref, RefObject } from 'react'
 import type { UseFormRegisterReturn } from 'react-hook-form'
 
 export type Priority = 'urgent' | 'high' | 'standard'
@@ -93,8 +94,6 @@ export type ActivityFormValues = {
   note?: string
 }
 
-
-
 export type ToggleField =
   | 'delegatedActivity'
   | 'assignToProject'
@@ -158,12 +157,13 @@ export interface NoteProps {
 }
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'danger'
+  variant?: 'primary' | 'secondary' | 'danger' | 'expand'
   isLoading?: boolean
   icon?: React.ReactNode
   iconPosition?: 'left' | 'right'
   size?: 'sm' | 'md' | 'lg'
   iconOnly?: boolean
+  ref?: RefObject<HTMLButtonElement | null>
 }
 
 export interface SearchFieldProps {
@@ -180,15 +180,12 @@ export interface CardProps {
   onDelete?: (id: number) => void
 }
 
-
-
 export interface CoulmnProps {
   status: Status
   data: Activity[]
   onEdit?: (id: number) => void
   onDelete?: (id: number) => void
 }
-
 
 export interface ColumnFilters {
   dueDateRange: string
@@ -199,9 +196,6 @@ export interface ColumnProps {
   onClose: () => void
   anchorRef: React.RefObject<HTMLButtonElement | null>
 }
-
-
-
 
 export interface DeleteModalProps {
   show: boolean

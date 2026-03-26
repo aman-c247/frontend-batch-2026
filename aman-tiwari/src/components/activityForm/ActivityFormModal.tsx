@@ -78,9 +78,9 @@ export const ActivityFormModal = ({ onClose, editRecord }: Props) => {
               ? `Edit Activity – ${editRecord.activityName}`
               : ACTIVITY_FORM_TEXT.title.create}
           </h2>
-          <button type="button" className={styles.closeBtn} onClick={onClose}>
+          <Button className={styles.closeBtn} onClick={onClose}>
             {ACTIVITY_FORM_TEXT.buttons.close}
-          </button>
+          </Button>
         </div>
 
         <div className={styles.body}>

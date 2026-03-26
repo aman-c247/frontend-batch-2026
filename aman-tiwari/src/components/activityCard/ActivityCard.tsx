@@ -1,6 +1,6 @@
 'use client'
 
-import type { Activity, CardProps } from '@/types/activity.types'
+import type { CardProps } from '@/types/activity.types'
 import styles from './ActivityCard.module.scss'
 import { IconUser } from '@/assets/icon/IconUser'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
@@ -13,8 +13,7 @@ import { IconCalendarHeart } from '@/assets/icon/IconHeart'
 import { ConfirmDeleteModal } from '@/components/deleteModal/DeleteModal'
 import { useActivityCard } from '../hooks/useActivityCard'
 import { CARD_TEXT } from './activityCard.constants'
-
-
+import { Button } from '../common/Button'
 
 export const ActivityCard = ({ activity, onEdit, onDelete }: CardProps) => {
   const {
@@ -68,27 +67,23 @@ export const ActivityCard = ({ activity, onEdit, onDelete }: CardProps) => {
         </div>
 
         <div className={styles.actions}>
-          <button className={styles.expandBtn}>
-            <IconChevron />
-          </button>
+          <Button variant="expand" icon={<IconChevron />}></Button>
           <div className={styles.actionBtns}>
-            <button
+            <Button
               className={`${styles.actionBtn} ${styles.edit}`}
               onPointerDown={(e) => e.stopPropagation()}
               onClick={(e) => {
                 e.stopPropagation()
                 onEdit?.(activity.id!)
               }}
-            >
-              <IconEdit />
-            </button>
-            <button
+              icon={<IconEdit />}
+            ></Button>
+            <Button
               className={`${styles.actionBtn} ${styles.delete}`}
               onPointerDown={(e) => e.stopPropagation()}
               onClick={openDelete}
-            >
-              <IconTrash />
-            </button>
+              icon={<IconTrash />}
+            ></Button>
           </div>
         </div>
       </div>

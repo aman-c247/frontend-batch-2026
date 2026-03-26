@@ -1,7 +1,7 @@
 @use '@/styles/abstracts' as *;
 
-$svg-width:36px;
-$svg-height:36px;
+$svg-width: 34px;
+$svg-height: 34px;
 
 .column {
   background: $color-light;
@@ -14,8 +14,7 @@ $svg-height:36px;
 
   &.activeDrop {
     background: $color-light;
-    outline: 2px dashed #6366f1;
-    outline-offset: -2px;
+    outline: $spacing-vsm dashed $color-secondary;
   }
 }
 
@@ -35,7 +34,6 @@ $svg-height:36px;
   font-size: $font-size-sm;
   font-weight: $font-weight-xl;
   color: $color-text-main;
-  letter-spacing: -0.01em;
 }
 
 .badge {
@@ -86,7 +84,7 @@ $svg-height:36px;
 }
 
 .filterActive {
-  background:$color-secondary !important;
+  background: $color-secondary !important;
   color: $color-white !important;
   border-radius: $radius-sm;
 

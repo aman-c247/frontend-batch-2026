@@ -5,33 +5,24 @@
   inset: 0;
   background: rgba(10, 20, 50, 0.52);
   backdrop-filter: blur(3px);
-
   @include flex-center();
-
   z-index: $z-modal;
   padding: $spacing-md;
-
   @include fade-in();
 }
 
 .modal {
   background: $color-white;
   border-radius: $radius-md;
-
   width: $width-l;
   max-width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-
   padding: $spacing-xl $spacing-lg $spacing-md;
-
   box-shadow: $shadow-lg;
-
   @include slide-up();
-
   gap: 0;
 }
 
@@ -49,7 +40,6 @@
     width: $spacing-lg;
     height: $spacing-lg;
     color: $color-danger;
-
     path,
     rect,
     line,
@@ -63,9 +53,7 @@
   font-family: $font-primary;
   font-size: $font-size-md;
   font-weight: $font-weight-xl;
-
   color: $color-text-main;
-
   margin: 0 0 $spacing-sm;
   letter-spacing: -0.01em;
 }
@@ -73,10 +61,8 @@
 .message {
   font-family: $font-primary;
   font-size: $font-size-xs;
-
   color: $color-text-muted;
   line-height: 1.6;
-
   margin: 0 0 $spacing-lg;
 }
 
@@ -89,22 +75,17 @@
 .confirmBtn {
   flex: 1;
   padding: $spacing-sm 0;
-
   border: none;
   border-radius: $radius-sm;
-
   font-family: $font-primary;
   font-size: $font-size-xs;
   font-weight: $font-weight-l;
-
   cursor: pointer;
   transition: opacity $transition-medium;
-
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
-
   &:hover:not(:disabled) {
     opacity: 0.88;
   }

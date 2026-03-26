@@ -8,95 +8,93 @@ import { STATUS_LABELS } from '../activityColumn/activityColumn.constants'
 
 const STATUS_SET = new Set<string>(['open', 'onHold', 'inProgress', 'resolved'])
 
-
 interface UseActivityDragOptions {
   activities: Activity[]
-
 }
 
-export function useActivityDrag({
-  activities,
-
-}: UseActivityDragOptions) {
+export function useActivityDrag({ activities }: UseActivityDragOptions) {
   const [activeItem, setActiveItem] = useState<Activity | null>(null)
 
-const onDragStart = useCallback(
-  (event: DragStartEvent) => {
-    const id = parseInt(event.active.id as string, 10)
-    if (isNaN(id)) return
+  const onDragStart = useCallback(
+    (event: DragStartEvent) => {
+      const id = parseInt(event.active.id as string, 10)
+      if (isNaN(id)) return
 
-    const item = activities.find((activity) => activity.id === id)
-    setActiveItem(item || null)
-  },
-  [activities],
-)
-  const onDragEnd = useCallback(async (event: DragEndEvent) => {
+      const item = activities.find((activity) => activity.id === id)
+      setActiveItem(item || null)
+    },
+    [activities],
+  )
+  const onDragEnd = useCallback(
+    async (event: DragEndEvent) => {
+      setActiveItem(null)
 
-    setActiveItem(null)
+      const { active, over } = event
+      if (!over) return
 
-    const { active, over } = event
-    if (!over) return
+      const activeId = parseInt(active.id as string, 10)
+      if (isNaN(activeId)) return
 
-    const activeId = parseInt(active.id as string, 10)
-    if (isNaN(activeId)) return
+      const all = activities
+      const activeActivity = all.find((activity) => activity.id === activeId)
+      if (!activeActivity) return
+      const overId = over.id
 
+      if (STATUS_SET.has(String(overId))) {
+        const newStatus = overId as Status
 
-    const all = activities
-    const activeActivity = all.find((activity) => activity.id === activeId)
-    if (!activeActivity) return
-   const overId = over.id
+        if (activeActivity.status === newStatus) return
 
-    if (STATUS_SET.has(String(overId))) {
-      const newStatus = overId as Status
+        const columnItems = all
+          .filter(
+            (activity) =>
+              activity.status === newStatus && activity.id !== activeId,
+          )
+          .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
 
+        await db.activities.update(activeId, {
+          status: newStatus,
+          sortOrder: columnItems.length,
+        })
 
-      if (activeActivity.status === newStatus) return
+        toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
+
+        return
+      }
+
+      const overItem = all.find((a) => a.id === Number(overId))
+      if (!overItem) return
+
+      const newStatus = overItem.status
+      const movedAcrossColumns = activeActivity.status !== newStatus
 
       const columnItems = all
-        .filter((activity) => activity.status === newStatus && activity.id !== activeId)
+        .filter(
+          (activity) =>
+            activity.status === newStatus && activity.id !== activeId,
+        )
         .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
 
-      await db.activities.update(activeId, {
-        status: newStatus,
-        sortOrder: columnItems.length,
-      })
+      const overIndex = columnItems.findIndex((a) => a.id === overItem.id)
+      columnItems.splice(overIndex, 0, { ...activeActivity, status: newStatus })
 
-      toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
+      await Promise.all(
+        columnItems.map((item, index) =>
+          db.activities.update(item.id!, {
+            sortOrder: index,
+            status: newStatus,
+          }),
+        ),
+      )
 
-      return
-    }
+      if (movedAcrossColumns) {
+        toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
+      } else {
+        toast.success(ACTIVITY_FORM_MESSAGES.TOAST.UPDATE.SUCCESS)
+      }
+    },
+    [activities],
+  )
 
-
-    const overItem = all.find((a) => a.id === Number(overId))
-    if (!overItem) return
-
-    const newStatus = overItem.status
-    const movedAcrossColumns = activeActivity.status !== newStatus
-
-    const columnItems = all
-      .filter((activity) => activity.status === newStatus && activity.id !== activeId)
-      .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-
-    const overIndex = columnItems.findIndex((a) => a.id === overItem.id)
-    columnItems.splice(overIndex, 0, { ...activeActivity, status: newStatus })
-
-    await Promise.all(
-      columnItems.map((item, index) =>
-        db.activities.update(item.id!, {
-          sortOrder: index,
-          status: newStatus,
-        }),
-      ),
-    )
-
-    if (movedAcrossColumns) {
-      toast.success(`Moved to "${STATUS_LABELS[newStatus]}"`)
-    } else {
-      toast.success( ACTIVITY_FORM_MESSAGES.TOAST.UPDATE.SUCCESS)
-    }
-
-
-  },[activities])
-
-  return { activeItem, onDragEnd,onDragStart }
+  return { activeItem, onDragEnd, onDragStart }
 }

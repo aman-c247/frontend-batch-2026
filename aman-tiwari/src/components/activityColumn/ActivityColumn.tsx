@@ -1,6 +1,5 @@
 'use client'
 
-
 import { Col } from 'react-bootstrap'
 
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
@@ -11,12 +10,14 @@ import { IconFilter } from '@/assets/icon/IconFilter'
 import { ColumnFilterPanel } from './CoulmnFilter'
 import { FILTER_TEXT, STATUS_LABELS } from './activityColumn.constants'
 import { useActivityColumn } from '../hooks/useActivityColumn'
+import { Button } from '../common/Button'
 
-
-
-
-
-export const ActivityColumn = ({ status, data, onEdit, onDelete }: CoulmnProps) => {
+export const ActivityColumn = ({
+  status,
+  data,
+  onEdit,
+  onDelete,
+}: CoulmnProps) => {
   const {
     setNodeRef,
     isOver,
@@ -42,14 +43,14 @@ export const ActivityColumn = ({ status, data, onEdit, onDelete }: CoulmnProps) 
             <span className={styles.statusLabel}>{STATUS_LABELS[status]}</span>
             <span className={styles.badge}>{filtered.length}</span>
           </div>
-          <button
+          <Button
             ref={filterBtnRef}
             className={`${styles.filterBtn} ${isFiltered ? styles.filterActive : ''}`}
             onClick={() => setShowFilter((v) => !v)}
             title={FILTER_TEXT.FILTER}
           >
             <IconFilter />
-          </button>
+          </Button>
 
           {showFilter && (
             <ColumnFilterPanel

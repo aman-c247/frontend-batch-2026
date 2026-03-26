@@ -17,14 +17,15 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   disabled,
   size = "md",
-   iconOnly=false,
+  iconOnly = false,
+   ref,
   ...props
 
 }) => {
   return (
     <button
       className={classNames(
-        styles.btn,
+
         styles[variant],
         styles[size],
         {

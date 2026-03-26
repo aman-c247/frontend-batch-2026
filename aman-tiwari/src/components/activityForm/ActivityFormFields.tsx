@@ -11,6 +11,7 @@ import type {
   ToggleProps,
   ToggleRowProps,
 } from '@/types/activity.types'
+import { Button } from '../common/Button'
 
 export const FieldLabel = ({
   htmlFor,
@@ -127,22 +128,22 @@ export const YesNoToggle = ({
   onChange,
 }: ToggleProps) => (
   <div className={styles.toggleGroup}>
-    <button
-      type="button"
+    <Button
+      type={ACTIVITY_FORM_TEXT.buttons.button as 'button'}
       className={`${styles.toggleBtn} ${value === 'yes' ? styles.active : ''}`}
       onClick={() => onChange(field, 'yes')}
       disabled={disabled}
     >
       {ACTIVITY_FORM_TEXT.toggles.yes}
-    </button>
-    <button
-      type="button"
+    </Button>
+    <Button
+      type={ACTIVITY_FORM_TEXT.buttons.button as 'button'}
       className={`${styles.toggleBtn} ${value === 'no' ? styles.inactive : ''}`}
       onClick={() => onChange(field, 'no')}
       disabled={disabled}
     >
       {ACTIVITY_FORM_TEXT.toggles.no}
-    </button>
+    </Button>
   </div>
 )
 

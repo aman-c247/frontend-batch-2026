@@ -95,13 +95,14 @@ export function useActivityForm({
   })
 
   return {
+    setValue,
+
     form,
     errors,
     watch,
-    setValue,
+
     onSubmit,
     handleToggle,
-
 
     registerFields,
 

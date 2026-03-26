@@ -1,24 +1,24 @@
 @use '@/styles/abstracts' as *;
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: $spacing-sm;
-  padding: $spacing-sm $spacing-14;
-  border-radius: $spacing-6;
-  border: none;
-  cursor: pointer;
-  font-weight: $font-weight-md;
-  transition: all 0.2s ease;
-}
-
 /* Variants */
 .primary {
   background: $color-secondary;
   color: $color-white;
 
   &:hover {
-    background: $color-text-main;
+    background: $color-text-muted;
+  }
+}
+
+.expand {
+  @include action-button(30px, 50%);
+  border: $border-xs;
+  background: $color-bg-light;
+  color: $color-text;
+
+  &:hover {
+    background: $color-svg;
+    color: $color-primary;
   }
 }
 
@@ -27,7 +27,7 @@
   color: $color-text-main;
 
   &:hover {
-    background: $color-text-light;
+    background: $color-text-muted;
   }
 }
 

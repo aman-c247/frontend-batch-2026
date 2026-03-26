@@ -1,7 +1,11 @@
-
 import { useState, useRef, useMemo } from 'react'
 import { useDroppable } from '@dnd-kit/core'
-import type { Activity, ActivityRecord, ColumnFilters, Status } from '@/types/activity.types'
+import type {
+  Activity,
+  ActivityRecord,
+  ColumnFilters,
+  Status,
+} from '@/types/activity.types'
 
 const startOfDay = (d: Date) =>
   new Date(d.getFullYear(), d.getMonth(), d.getDate())
@@ -41,24 +45,23 @@ export function useActivityColumn(status: Status, data: Activity[]) {
       .filter((activity) => activity.status === status)
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
       .filter((activity) => {
-        if (filters.priority && activity.priority !== filters.priority) return false
+        if (filters.priority && activity.priority !== filters.priority)
+          return false
         if (!matchesDueRange(activity, filters.dueDateRange)) return false
         return true
       })
   }, [data, status, filters])
 
   return {
-
-    setNodeRef,
-    isOver,
-
-    filterBtnRef,
-    showFilter,
-    setShowFilter,
-    filters,
     setFilters,
-    isFiltered,
+    setNodeRef,
+    setShowFilter,
 
+    showFilter,
+    isOver,
+    isFiltered,
+    filterBtnRef,
+    filters,
     filtered,
   }
 }

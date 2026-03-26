@@ -23,22 +23,3 @@
   transform: rotate(2deg);
   width: 220px;
 }
-
-.toast-base {
-  font-family: $font-primary !important;
-  font-size: $font-size-xs !important;
-  font-weight: $font-weight-md !important;
-
-  border-radius: $radius-md !important;
-  box-shadow: $shadow-md !important;
-
-  padding: $spacing-s $spacing-14 !important;
-  max-width: 320px !important;
-
-  color: $color-text-main !important;
-  background: $color-white !important;
-
-  border: 1px solid $color-border-light;
-
-  @include flex-center(8px);
-}

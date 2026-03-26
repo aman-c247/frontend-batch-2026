@@ -98,7 +98,7 @@ $panel-width:220px;
   background: $color-white;
   border: none !important;
   border-left: $border-xs !important;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0 $spacing-xs $spacing-xs 0;
   color: $color-gray;
   cursor: pointer;
   transition: background 0.15s;

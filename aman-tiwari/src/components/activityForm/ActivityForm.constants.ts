@@ -10,6 +10,7 @@ export const ACTIVITY_FORM_TEXT = {
     save: 'Save Activity',
     add_activity: 'Add Activity Name to Data Set',
     close: '✕',
+    button: 'button',
   },
 
   fields: {
@@ -45,7 +46,7 @@ export const ACTIVITY_FORM_TEXT = {
     activityDetails: 'Write activity details here...',
     dueDate: 'Choose a due date',
     write_note: 'Write a note',
-    noteBelow:'Add your note below.'
+    noteBelow: 'Add your note below.',
   },
 }
 

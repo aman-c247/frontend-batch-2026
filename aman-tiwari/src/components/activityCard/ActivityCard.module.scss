@@ -85,18 +85,6 @@
   padding: $spacing-6;
 }
 
-.expandBtn {
-  @include action-button(30px, 50%);
-  border: $border-xs;
-  background: $color-bg-light;
-  color: $color-text;
-
-  &:hover {
-    background: $color-svg;
-    color: $color-primary;
-  }
-}
-
 .actionBtns {
   @include flex-center(5px);
 }
