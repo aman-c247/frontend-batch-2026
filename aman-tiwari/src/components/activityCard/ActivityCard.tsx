@@ -1,6 +1,6 @@
 'use client'
 
-import type { Activity } from '@/types/activity.types'
+import type { Activity, CardProps } from '@/types/activity.types'
 import styles from './ActivityCard.module.scss'
 import { IconUser } from '@/assets/icon/IconUser'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
@@ -14,13 +14,9 @@ import { ConfirmDeleteModal } from '@/components/deleteModal/DeleteModal'
 import { useActivityCard } from '../hooks/useActivityCard'
 import { CARD_TEXT } from './activityCard.constants'
 
-interface Props {
-  activity: Activity
-  onEdit?: (id: number) => void
-  onDelete?: (id: number) => void
-}
 
-export const ActivityCard = ({ activity, onEdit, onDelete }: Props) => {
+
+export const ActivityCard = ({ activity, onEdit, onDelete }: CardProps) => {
   const {
     attributes,
     listeners,

@@ -3,34 +3,26 @@
 import styles from './CoulmnFilter.module.scss'
 import { IconCalendar } from '@/assets/icon/IconCalendar'
 import { FILTER_TEXT, PRIORITY_OPTIONS } from './activityColumn.constants'
-import type { ColumnFilters } from '@/types/activity.types'
+import type { ColumnFilters, ColumnProps } from '@/types/activity.types'
 import { useColumnFilter } from '../hooks/useColumnFilter'
 
 
 
-interface Props {
-  onApply: (filters: ColumnFilters) => void
-  onClose: () => void
-  anchorRef: React.RefObject<HTMLButtonElement | null>
-}
+export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: ColumnProps) => {
+  const {
+    dueDateRange,
+    priority,
+    setDueDateRange,
+    setPriority,
 
+    panelRef,
+    dateInputRef,
 
+    handleFilter,
+    handleReset,
 
-export const ColumnFilterPanel = ({ onApply, onClose, anchorRef }: Props) => {
- const {
-   dueDateRange,
-   priority,
-   setDueDateRange,
-   setPriority,
-
-   panelRef,
-   dateInputRef,
-
-   handleFilter,
-   handleReset,
-   
-   formatDisplay,
- } = useColumnFilter(onApply, onClose, anchorRef)
+    formatDisplay,
+  } = useColumnFilter(onApply, onClose, anchorRef)
 
   return (
     <div ref={panelRef} className={styles.panel}>

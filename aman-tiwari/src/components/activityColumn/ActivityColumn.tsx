@@ -4,7 +4,7 @@
 import { Col } from 'react-bootstrap'
 
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import type { Activity, Status } from '@/types/activity.types'
+import type { CoulmnProps } from '@/types/activity.types'
 import { ActivityCard } from '../activityCard/ActivityCard'
 import styles from '@/components/activityColumn/ActivityColumn.module.scss'
 import { IconFilter } from '@/assets/icon/IconFilter'
@@ -12,29 +12,24 @@ import { ColumnFilterPanel } from './CoulmnFilter'
 import { FILTER_TEXT, STATUS_LABELS } from './activityColumn.constants'
 import { useActivityColumn } from '../hooks/useActivityColumn'
 
-interface Props {
-  status: Status
-  data: Activity[]
-  onEdit?: (id: number) => void
-  onDelete?: (id: number) => void
-}
 
 
 
-export const ActivityColumn = ({ status, data, onEdit, onDelete }: Props) => {
- const {
-   setNodeRef,
-   isOver,
 
-   filterBtnRef,
-   showFilter,
-   setShowFilter,
-   
-   setFilters,
-   isFiltered,
+export const ActivityColumn = ({ status, data, onEdit, onDelete }: CoulmnProps) => {
+  const {
+    setNodeRef,
+    isOver,
 
-   filtered,
- } = useActivityColumn(status, data)
+    filterBtnRef,
+    showFilter,
+    setShowFilter,
+
+    setFilters,
+    isFiltered,
+
+    filtered,
+  } = useActivityColumn(status, data)
 
   return (
     <Col md={3}>

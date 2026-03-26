@@ -4,15 +4,10 @@ import toast from 'react-hot-toast'
 import { db } from '@/lib/db'
 import type { Activity, Status } from '@/types/activity.types'
 import { ACTIVITY_FORM_MESSAGES } from './hooks.constants'
+import { STATUS_LABELS } from '../activityColumn/activityColumn.constants'
 
 const STATUS_SET = new Set<string>(['open', 'onHold', 'inProgress', 'resolved'])
 
-const STATUS_LABELS: Record<Status, string> = {
-  open: 'Open',
-  onHold: 'On Hold',
-  inProgress: 'In Progress',
-  resolved: 'Resolved',
-}
 
 interface UseActivityDragOptions {
   activities: Activity[]
@@ -58,7 +53,7 @@ const onDragStart = useCallback(
       if (activeActivity.status === newStatus) return
 
       const columnItems = all
-        .filter((a) => a.status === newStatus && a.id !== activeId)
+        .filter((activity) => activity.status === newStatus && activity.id !== activeId)
         .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
 
       await db.activities.update(activeId, {
@@ -79,7 +74,7 @@ const onDragStart = useCallback(
     const movedAcrossColumns = activeActivity.status !== newStatus
 
     const columnItems = all
-      .filter((a) => a.status === newStatus && a.id !== activeId)
+      .filter((activity) => activity.status === newStatus && activity.id !== activeId)
       .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
 
     const overIndex = columnItems.findIndex((a) => a.id === overItem.id)

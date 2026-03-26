@@ -1,17 +1,10 @@
 'use client'
 
+import type { DeleteModalProps } from '@/types/activity.types'
 import { DELETE_TEXT } from './deletemodal.constants'
 import styles from './DeleteModal.module.scss'
 import { IconTrash } from '@/assets/icon/IconTrash'
 
-interface Props {
-  show: boolean
-  onHide: () => void
-  onConfirm: () => void
-  title?: string
-  message?: string
-  isLoading?: boolean
-}
 
 export const ConfirmDeleteModal = ({
   show,
@@ -20,7 +13,7 @@ export const ConfirmDeleteModal = ({
   title = 'Delete Activity',
   message = 'activity',
   isLoading = false,
-}: Props) => {
+}: DeleteModalProps) => {
   if (!show) return null
 
   return (
@@ -31,9 +24,7 @@ export const ConfirmDeleteModal = ({
         </div>
 
         <h5 className={styles.title}>{title}</h5>
-        <p
-          className={styles.message}
-        >{DELETE_TEXT.ALERT(message)}</p>
+        <p className={styles.message}>{DELETE_TEXT.ALERT(message)}</p>
 
         <div className={styles.buttonGroup}>
           <button

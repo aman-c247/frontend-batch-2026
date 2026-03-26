@@ -93,10 +93,7 @@ export type ActivityFormValues = {
   note?: string
 }
 
-export interface ColumnFilters {
-  dueDateRange: string
-  priority: string
-}
+
 
 export type ToggleField =
   | 'delegatedActivity'
@@ -167,9 +164,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   iconPosition?: 'left' | 'right'
   size?: 'sm' | 'md' | 'lg'
   iconOnly?: boolean
-
 }
-
 
 export interface SearchFieldProps {
   value: string
@@ -179,3 +174,40 @@ export interface SearchFieldProps {
   onAddToDataSetChange: (val: boolean) => void
 }
 
+export interface CardProps {
+  activity: Activity
+  onEdit?: (id: number) => void
+  onDelete?: (id: number) => void
+}
+
+
+
+export interface CoulmnProps {
+  status: Status
+  data: Activity[]
+  onEdit?: (id: number) => void
+  onDelete?: (id: number) => void
+}
+
+
+export interface ColumnFilters {
+  dueDateRange: string
+  priority: string
+}
+export interface ColumnProps {
+  onApply: (filters: ColumnFilters) => void
+  onClose: () => void
+  anchorRef: React.RefObject<HTMLButtonElement | null>
+}
+
+
+
+
+export interface DeleteModalProps {
+  show: boolean
+  onHide: () => void
+  onConfirm: () => void
+  title?: string
+  message?: string
+  isLoading?: boolean
+}
